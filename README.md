@@ -1,6 +1,6 @@
 # BACnet/IT java implementation
 ## Download
-1. Get the source  
+1. Get the sources
 1.1 ```clone [GITHUB-REPO-URL]```
 
 
