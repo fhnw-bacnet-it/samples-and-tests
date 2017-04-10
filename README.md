@@ -1,12 +1,16 @@
 # BACnet/IT java implementation
 ## Download
-1. Get the sources
-1.1 ```clone [GITHUB-REPO-URL]```
+1. Create an new empty directory "BACnetIT" and make it the current directory
+2. Get the sources  
+Stack project: ```git clone https://github.com/fhnw-BACnet-IT/Stack.git```  
+Binding project: ```git clone https://github.com/fhnw-BACnet-IT/Binding.git```  
+Misc project: ```git clone https://github.com/fhnw-BACnet-IT/Misc.git```
 
 
 ## Build
 1. Ensure JAVA 8 is installed
-2. TODO: Building steps using gradle wrapper
+2. Make BACnetIT/Misc the current directory
+3. Build all project using gradle wrapper: ```./gradlew build```
 
 
 ## Example 1
