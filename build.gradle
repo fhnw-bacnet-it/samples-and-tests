@@ -1,0 +1,71 @@
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'jacoco'
+
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile project(':bacnet-it-stack')
+    compile project(':bacnet-it-binding')
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'org.apache.commons:commons-collections4:4.0'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'dnsjava:dnsjava:2.1.7'
+    compile 'io.netty:netty-all:4.1.2.Final'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+build.dependsOn jacocoTestReport
+
+test {
+	ignoreFailures = true
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }               
+}
+
+checkstyle {
+    toolVersion = '7.5.1'
+}
+
+findbugs {
+    ignoreFailures = 'true'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        html.enabled = true
+    }
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
+

@@ -1,0 +1,8 @@
+rootProject.name = 'bacnet-it-misc'
+
+
+include ':bacnet-it-stack'
+project(':bacnet-it-stack').projectDir = new File("../BACnetITStack")
+
+include ':bacnet-it-binding'
+project(':bacnet-it-binding').projectDir = new File("../BACnetITBinding")

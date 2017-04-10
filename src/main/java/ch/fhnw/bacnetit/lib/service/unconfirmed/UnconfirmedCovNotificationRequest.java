@@ -1,0 +1,164 @@
+/*******************************************************************************
+ * Copyright (C) 2016 The Java BACnetITB Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package ch.fhnw.bacnetit.lib.service.unconfirmed;
+
+import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.lib.encoding.exception.BACnetException;
+import ch.fhnw.bacnetit.lib.encoding.type.ThreadLocalObjectTypeStack;
+import ch.fhnw.bacnetit.lib.encoding.type.constructed.PropertyValue;
+import ch.fhnw.bacnetit.lib.encoding.type.constructed.SequenceOf;
+import ch.fhnw.bacnetit.lib.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
+
+public class UnconfirmedCovNotificationRequest
+        extends UnconfirmedRequestService {
+    private static final long serialVersionUID = 2651771575417930244L;
+
+    public static final byte TYPE_ID = 2;
+
+    private final UnsignedInteger subscriberProcessIdentifier;
+
+    private final BACnetObjectIdentifier initiatingDeviceIdentifier;
+
+    private final BACnetObjectIdentifier monitoredObjectIdentifier;
+
+    private final UnsignedInteger timeRemaining;
+
+    private final SequenceOf<PropertyValue> listOfValues;
+
+    public UnconfirmedCovNotificationRequest(
+            final UnsignedInteger subscriberProcessIdentifier,
+            final BACnetObjectIdentifier initiatingDeviceIdentifier,
+            final BACnetObjectIdentifier monitoredObjectIdentifier,
+            final UnsignedInteger timeRemaining,
+            final SequenceOf<PropertyValue> listOfValues) {
+        this.subscriberProcessIdentifier = subscriberProcessIdentifier;
+        this.initiatingDeviceIdentifier = initiatingDeviceIdentifier;
+        this.monitoredObjectIdentifier = monitoredObjectIdentifier;
+        this.timeRemaining = timeRemaining;
+        this.listOfValues = listOfValues;
+    }
+
+    @Override
+    public byte getChoiceId() {
+        return TYPE_ID;
+    }
+
+    // @Override
+    // public void handle(LocalDevice localDevice, Address from, OctetString
+    // linkService) {
+    // localDevice.getEventHandler().fireCovNotification(subscriberProcessIdentifier,
+    // localDevice.getRemoteDeviceCreate(initiatingDeviceIdentifier.getInstanceNumber(),
+    // from, linkService),
+    // monitoredObjectIdentifier, timeRemaining, listOfValues);
+    // }
+
+    @Override
+    public void write(final ByteQueue queue) {
+        write(queue, subscriberProcessIdentifier, 0);
+        write(queue, initiatingDeviceIdentifier, 1);
+        write(queue, monitoredObjectIdentifier, 2);
+        write(queue, timeRemaining, 3);
+        write(queue, listOfValues, 4);
+    }
+
+    UnconfirmedCovNotificationRequest(final ByteQueue queue)
+            throws BACnetException {
+        subscriberProcessIdentifier = read(queue, UnsignedInteger.class, 0);
+        initiatingDeviceIdentifier = read(queue, BACnetObjectIdentifier.class,
+                1);
+        monitoredObjectIdentifier = read(queue, BACnetObjectIdentifier.class,
+                2);
+        timeRemaining = read(queue, UnsignedInteger.class, 3);
+        try {
+            ThreadLocalObjectTypeStack
+                    .set(monitoredObjectIdentifier.getObjectType());
+            listOfValues = readSequenceOf(queue, PropertyValue.class, 4);
+        } finally {
+            ThreadLocalObjectTypeStack.remove();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + ((initiatingDeviceIdentifier == null) ? 0
+                : initiatingDeviceIdentifier.hashCode());
+        result = PRIME * result
+                + ((listOfValues == null) ? 0 : listOfValues.hashCode());
+        result = PRIME * result + ((monitoredObjectIdentifier == null) ? 0
+                : monitoredObjectIdentifier.hashCode());
+        result = PRIME * result + ((subscriberProcessIdentifier == null) ? 0
+                : subscriberProcessIdentifier.hashCode());
+        result = PRIME * result
+                + ((timeRemaining == null) ? 0 : timeRemaining.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UnconfirmedCovNotificationRequest other = (UnconfirmedCovNotificationRequest) obj;
+        if (initiatingDeviceIdentifier == null) {
+            if (other.initiatingDeviceIdentifier != null) {
+                return false;
+            }
+        } else if (!initiatingDeviceIdentifier
+                .equals(other.initiatingDeviceIdentifier)) {
+            return false;
+        }
+        if (listOfValues == null) {
+            if (other.listOfValues != null) {
+                return false;
+            }
+        } else if (!listOfValues.equals(other.listOfValues)) {
+            return false;
+        }
+        if (monitoredObjectIdentifier == null) {
+            if (other.monitoredObjectIdentifier != null) {
+                return false;
+            }
+        } else if (!monitoredObjectIdentifier
+                .equals(other.monitoredObjectIdentifier)) {
+            return false;
+        }
+        if (subscriberProcessIdentifier == null) {
+            if (other.subscriberProcessIdentifier != null) {
+                return false;
+            }
+        } else if (!subscriberProcessIdentifier
+                .equals(other.subscriberProcessIdentifier)) {
+            return false;
+        }
+        if (timeRemaining == null) {
+            if (other.timeRemaining != null) {
+                return false;
+            }
+        } else if (!timeRemaining.equals(other.timeRemaining)) {
+            return false;
+        }
+        return true;
+    }
+}

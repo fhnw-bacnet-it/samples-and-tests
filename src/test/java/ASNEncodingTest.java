@@ -1,0 +1,105 @@
+/*******************************************************************************
+ * Copyright (C) 2016 The Java BACnetITB Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+
+import java.util.Arrays;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.lib.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.lib.encoding.type.enumerated.Segmentation;
+import ch.fhnw.bacnetit.lib.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.lib.service.confirmed.ConfirmedRequestService;
+import ch.fhnw.bacnetit.lib.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.lib.service.unconfirmed.IAmRequest;
+import ch.fhnw.bacnetit.lib.service.unconfirmed.UnconfirmedRequestService;
+import ch.fhnw.bacnetit.lib.service.unconfirmed.WhoIsRequest;
+import ch.fhnw.bacnetit.lib.util.BytesUtil;
+
+public class ASNEncodingTest {
+
+    /*
+     * Confirmed ReadProperty Request on Presen_Value property of Analog Input
+     * with instance 5.
+     */
+    @Test
+    public void testReadPropertyRequestForAnalogInputAndPresentValue() {
+        final byte[] expected = BytesUtil
+                .hexStringToByteArray("0ECE0C000000051955CF0F");
+        final BACnetObjectIdentifier oid = new BACnetObjectIdentifier(
+                BACnetObjectType.analogInput, 5);
+        final ConfirmedRequestService service = new ReadPropertyRequest(oid,
+                BACnetPropertyIdentifier.presentValue);
+        final ByteQueue serviceData = new ByteQueue();
+        service.write(serviceData);
+        final byte[] bytes = serviceData.peekAll();
+        Assert.assertTrue(Arrays.equals(expected, bytes));
+    }
+
+    /*
+     * Unconfirmed Who-Is Request with no filter parameters
+     */
+    @Test
+    public void testWhoIsRequestWithNoFilter() {
+        final byte[] expected = BytesUtil.hexStringToByteArray("1E8E8F1F");
+        final UnconfirmedRequestService service = new WhoIsRequest();
+        final ByteQueue serviceData = new ByteQueue();
+        service.write(serviceData);
+        final byte[] bytes = serviceData.peekAll();
+        Assert.assertTrue(Arrays.equals(expected, bytes));
+    }
+
+    /*
+     * Unconfirmed Who-Is Request with instance filter parameter (1000 <=
+     * instance <= 2000)
+     */
+    @Test
+    public void testWhoIsRequestWithFilterAndDirectedBroadcast() {
+        final byte[] expected = BytesUtil
+                .hexStringToByteArray("1E8E0A03E81A07D08F1F");
+        final UnsignedInteger lowLimit = new UnsignedInteger(1000);
+        final UnsignedInteger highLimit = new UnsignedInteger(2000);
+        final UnconfirmedRequestService service = new WhoIsRequest(lowLimit,
+                highLimit);
+        final ByteQueue serviceData = new ByteQueue();
+        service.write(serviceData);
+        final byte[] bytes = serviceData.peekAll();
+        Assert.assertTrue(Arrays.equals(expected, bytes));
+    }
+
+    /*
+     * Unconfirmed I-Am Request unicast to a single device from device with
+     * Device ID 12345.
+     */
+    @Test
+    public void testIAmRequestWithUnicast() {
+        final byte[] expected = BytesUtil
+                .hexStringToByteArray("1E0EC402003039220400910321070F1F");
+        final BACnetObjectIdentifier oid = new BACnetObjectIdentifier(
+                BACnetObjectType.device, 12345);
+        final UnsignedInteger maxAPDULength = new UnsignedInteger(1024);
+        final UnsignedInteger vendorId = new UnsignedInteger(7);
+        final UnconfirmedRequestService service = new IAmRequest(oid,
+                maxAPDULength, Segmentation.noSegmentation, vendorId);
+        final ByteQueue serviceData = new ByteQueue();
+        service.write(serviceData);
+        final byte[] bytes = serviceData.peekAll();
+        Assert.assertTrue(Arrays.equals(expected, bytes));
+    }
+}
