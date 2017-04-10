@@ -13,7 +13,6 @@ import ch.fhnw.bacnetit.stack.application.transaction.Channel;
 import ch.fhnw.bacnetit.stack.application.transaction.ChannelListener;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
 import ch.fhnw.bacnetit.stack.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.stack.encoding._CharacterString;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryBindingType;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
 import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;

@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * Copyright (C) 2016 The Java BACnetITB Authors
  *
@@ -28,8 +29,8 @@ import ch.fhnw.bacnetit.lib.service.unconfirmed.IAmRequest;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
 import ch.fhnw.bacnetit.stack.encoding.NetworkPriority;
 import ch.fhnw.bacnetit.stack.encoding.TPDU;
-import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
 import ch.fhnw.bacnetit.stack.encoding.UnsignedInteger31;
+import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
 
 public class UnicastUnconfIAmReqTest {
 

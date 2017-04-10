@@ -1,7 +1,10 @@
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
+
 import org.junit.Test;
+
 import ch.fhnw.bacnetit.binding.ws.ControlMessageHandler;
 import ch.fhnw.bacnetit.binding.ws.WSBinaryFrameHandler;
 import ch.fhnw.bacnetit.binding.ws.WSEncoder;

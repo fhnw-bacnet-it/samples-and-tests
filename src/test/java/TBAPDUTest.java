@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * Copyright (C) 2016 The Java BACnetITB Authors
  *
@@ -22,8 +23,8 @@ import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
 import ch.fhnw.bacnetit.lib.service.unconfirmed.WhoIsRequest;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
 import ch.fhnw.bacnetit.stack.encoding.TPDU;
-import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
 import ch.fhnw.bacnetit.stack.encoding.UnsignedInteger8;
+import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
 
 public class TBAPDUTest {
 
@@ -34,8 +35,8 @@ public class TBAPDUTest {
         final ByteQueue q = new ByteQueue();
         new WhoIsRequest().write(q);
         final TPDU t1 = new TPDU(null, new BACnetEID(12345),
-                new BACnetEID(78945), new UnsignedInteger8(44), new UnsignedInteger8(33),
-                null, q.popAll());
+                new BACnetEID(78945), new UnsignedInteger8(44),
+                new UnsignedInteger8(33), null, q.popAll());
 
         // Create tbapdu2 with bytestream from tbapdu1
         final _ByteQueue queue = new _ByteQueue();

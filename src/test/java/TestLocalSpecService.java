@@ -1,10 +1,13 @@
 import static org.junit.Assert.assertEquals;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import ch.fhnw.bacnetit.binding.ws.incoming.WSConnectionServerFactory;
 import ch.fhnw.bacnetit.binding.ws.incoming.tls.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.binding.ws.outgoing.WSConnectionClientFactory;
@@ -52,7 +55,6 @@ import ch.fhnw.bacnetit.stack.encoding.T_UnitDataRequest;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryBindingType;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
 import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;
-
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -85,10 +87,11 @@ public class TestLocalSpecService {
     static volatile T_UnitDataIndication indicationTodevLocal22 = null;
 
     // Define key- and truststore
-    final KeystoreConfig keystoreConfig = new KeystoreConfig("../dummyKeystores/keyStoreDev1.jks",
-            "123456", "operationaldevcert");
-    final TruststoreConfig truststoreConfig = new TruststoreConfig("../dummyKeystores/trustStore.jks",
-            "123456", "installer.ch");
+    final KeystoreConfig keystoreConfig = new KeystoreConfig(
+            "../dummyKeystores/keyStoreDev1.jks", "123456",
+            "operationaldevcert");
+    final TruststoreConfig truststoreConfig = new TruststoreConfig(
+            "../dummyKeystores/trustStore.jks", "123456", "installer.ch");
 
     private void setupHost1() throws URISyntaxException {
 
@@ -155,7 +158,6 @@ public class TestLocalSpecService {
         /*
          * Update the monitor about host 1
          */
-        
 
         // Create a Network Port Object for host 1
         final NetworkPortObj npo = new NetworkPortObj("wss", 8001,
@@ -171,7 +173,7 @@ public class TestLocalSpecService {
                     @Override
                     public void onAdd(final TransactionKey key,
                             final Transaction t) throws Exception {
-                        
+
                     }
 
                     @Override
@@ -179,7 +181,6 @@ public class TestLocalSpecService {
                             final Transaction t,
                             final TransactionState previousState)
                             throws Exception {
-                        
 
                     }
                 });
@@ -209,7 +210,6 @@ public class TestLocalSpecService {
                 return npo.getUri();
             }
         });
-       
 
         channel1.registerChannelListener(new ChannelListener(devLocal12) {
 
@@ -230,7 +230,6 @@ public class TestLocalSpecService {
                 return npo.getUri();
             }
         });
-       
 
     }
 
@@ -297,8 +296,6 @@ public class TestLocalSpecService {
         // Init and start the channel
         channel2.initializeAndStart(connectionFactory2);
 
-
-
         // Create a Network Port Object for host 2
         final NetworkPortObj npo2 = new NetworkPortObj("wss", 9001,
                 keystoreConfig);
@@ -313,7 +310,7 @@ public class TestLocalSpecService {
                     @Override
                     public void onAdd(final TransactionKey key,
                             final Transaction t) throws Exception {
-           
+
                     }
 
                     @Override
@@ -321,7 +318,6 @@ public class TestLocalSpecService {
                             final Transaction t,
                             final TransactionState previousState)
                             throws Exception {
-                        
 
                     }
                 });
@@ -351,7 +347,7 @@ public class TestLocalSpecService {
                 return npo2.getUri();
             }
         });
-        
+
         channel2.registerChannelListener(new ChannelListener(devLocal22) {
 
             @Override
@@ -372,7 +368,7 @@ public class TestLocalSpecService {
                 return npo2.getUri();
             }
         });
-       
+
     }
 
     private void setupDiscovery() {
