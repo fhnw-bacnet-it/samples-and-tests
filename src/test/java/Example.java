@@ -34,6 +34,7 @@ import ch.fhnw.bacnetit.lib.service.confirmed.ReadPropertyRequest;
 import ch.fhnw.bacnetit.stack.application.BACnetEntityListener;
 import ch.fhnw.bacnetit.stack.application.NetworkPortObj;
 import ch.fhnw.bacnetit.stack.application.configuration.DiscoveryConfig;
+import ch.fhnw.bacnetit.stack.application.configuration.KeystoreConfig;
 import ch.fhnw.bacnetit.stack.application.transaction.Channel;
 import ch.fhnw.bacnetit.stack.application.transaction.ChannelListener;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
@@ -59,8 +60,9 @@ public class Example {
 
         final BACnetEID device1inStack1 = new BACnetEID(1001);
         final BACnetEID device2inStack1 = new BACnetEID(1002);
+        final KeystoreConfig keystoreConfig1 = new KeystoreConfig("dummyKeystores/keyStoreDev1.jks","123456", "operationaldevcert");
 
-        final NetworkPortObj npo1 = new NetworkPortObj("ws", 8080, null);
+        final NetworkPortObj npo1 = new NetworkPortObj("ws", 8080, keystoreConfig1);
 
         channel1.registerChannelListener(new ChannelListener(device1inStack1) {
             @Override
@@ -138,7 +140,9 @@ public class Example {
 
         final BACnetEID device1inStack2 = new BACnetEID(2001);
         final BACnetEID device2inStack2 = new BACnetEID(2002);
-        final NetworkPortObj npo2 = new NetworkPortObj("ws", 9090, null);
+        final KeystoreConfig keystoreConfig2 = new KeystoreConfig("dummyKeystores/keyStoreDev1.jks","123456", "operationaldevcert");
+
+        final NetworkPortObj npo2 = new NetworkPortObj("ws", 9090, keystoreConfig2);
 
         channel2.registerChannelListener(new ChannelListener(device1inStack2) {
             @Override
@@ -221,6 +225,7 @@ public class Example {
         final ReadPropertyRequest readRequest = new ReadPropertyRequest(
                 new BACnetObjectIdentifier(BACnetObjectType.analogValue, 1),
                 BACnetPropertyIdentifier.presentValue);
+        
 
         final ByteQueue byteQueue = new ByteQueue();
         readRequest.write(byteQueue);
