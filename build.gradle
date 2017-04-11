@@ -14,13 +14,12 @@ repositories {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     compile project(':bacnet-it-stack')
-    compile project(':bacnet-it-binding')
+    compile project(':bacnet-it-wsbinding')
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.apache.commons:commons-collections4:4.0'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'dnsjava:dnsjava:2.1.7'
     compile 'io.netty:netty-all:4.1.2.Final'
-
     testCompile 'junit:junit:4.12'
     testCompile 'ch.qos.logback:logback-classic:1.1.2'
 }

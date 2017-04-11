@@ -4,5 +4,5 @@ rootProject.name = 'bacnet-it-misc'
 include ':bacnet-it-stack'
 project(':bacnet-it-stack').projectDir = new File("../Stack")
 
-include ':bacnet-it-binding'
-project(':bacnet-it-binding').projectDir = new File("../Binding")
+include ':bacnet-it-wsbinding'
+project(':bacnet-it-wsbinding').projectDir = new File("../WSBinding")

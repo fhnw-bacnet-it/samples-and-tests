@@ -2,7 +2,9 @@
 .gradle
 .project
 .classpath
-.settings/
+.settings
+.checkstyle
 *log
-/bin/
-/build/
+/bin
+/build
+
