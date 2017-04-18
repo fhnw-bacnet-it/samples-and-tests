@@ -3,7 +3,7 @@
 1. Create an new empty directory "BACnetIT" and make it the current directory
 2. Get the sources  
 Stack project: ```git clone https://github.com/fhnw-BACnet-IT/Stack.git```  
-Binding project: ```git clone https://github.com/fhnw-BACnet-IT/Binding.git```  
+WSBinding project: ```git clone https://github.com/fhnw-BACnet-IT/WSBinding.git```  
 Misc project: ```git clone https://github.com/fhnw-BACnet-IT/Misc.git```
 
 
