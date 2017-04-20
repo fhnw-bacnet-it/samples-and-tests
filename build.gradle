@@ -5,6 +5,17 @@ apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 
 
+version = '0.1.0-SNAPSHOT'
+
+jar {
+    baseName = 'bacnet-it-misc'
+    manifest {
+        attributes("Implementation-Title": "BACnet/IT Examples and Tests",
+                   "Implementation-Version": version)
+    }
+}
+
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     mavenCentral()
