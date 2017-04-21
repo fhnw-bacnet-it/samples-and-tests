@@ -10,7 +10,8 @@ Misc project: ```git clone https://github.com/fhnw-BACnet-IT/Misc.git```
 ## Build
 1. Ensure JAVA 8 is installed
 2. Make BACnetIT/Misc the current directory
-3. Build all project using gradle wrapper: ```./gradlew build```
+3. Build all project using gradle wrapper: ```./gradlew build -x test```
+4. Find all needed jars under build/distributions
 
 
 ## Example 1
@@ -18,7 +19,7 @@ Misc project: ```git clone https://github.com/fhnw-BACnet-IT/Misc.git```
 ### Description / Story:  
 Run two stacks on localhost.  
 Each stack simulates 2 BACnet/IT devices.  
-Let device 1 of stack 1 (device1inStack1) send a WriteProperty Request to device 2 on stack 2 (device2inStack2).
+Let device 1 of stack 1 (device1inStack1) send a WriteProperty-Request to device 2 on stack 2 (device2inStack2).
 
 ### Preparation
 Ensure the builded jars are in java class path.
