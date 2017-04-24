@@ -17,7 +17,7 @@ import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
 import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;
 import io.netty.channel.ChannelHandlerContext;
 
-public class Setup {
+public class HandsOn2 {
 
     public static void main(final String[] args) throws URISyntaxException {
         
