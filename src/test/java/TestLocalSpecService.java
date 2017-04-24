@@ -35,6 +35,7 @@ import ch.fhnw.bacnetit.binding.ws.incoming.WSConnectionServerFactory;
 import ch.fhnw.bacnetit.binding.ws.incoming.tls.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.binding.ws.outgoing.WSConnectionClientFactory;
 import ch.fhnw.bacnetit.binding.ws.outgoing.tls.WSSConnectionClientFactory;
+import ch.fhnw.bacnetit.directory.bindings.DNSSD;
 import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectIdentifier;
 import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectType;
 import ch.fhnw.bacnetit.lib.deviceobjects.BACnetPropertyIdentifier;
@@ -75,7 +76,6 @@ import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
 import ch.fhnw.bacnetit.stack.encoding.TPDU;
 import ch.fhnw.bacnetit.stack.encoding.T_UnitDataIndication;
 import ch.fhnw.bacnetit.stack.encoding.T_UnitDataRequest;
-import ch.fhnw.bacnetit.stack.network.directory.DirectoryBindingType;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
 import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;
 import io.netty.channel.ChannelHandlerContext;
@@ -395,13 +395,13 @@ public class TestLocalSpecService {
     }
 
     private void setupDiscovery() {
-        ds = new DiscoveryConfig(DirectoryBindingType.DNSSD.name(),
+        ds = new DiscoveryConfig("DNSSD",
                 "86.119.39.127", "itb.bacnet.ch.", "bds._sub._bacnet._tcp.",
                 "dev._sub._bacnet._tcp.", "obj._sub._bacnet._tcp.", false);
 
         try {
             DirectoryService.init();
-            DirectoryService.getInstance().setDns(ds);
+            DirectoryService.getInstance().setDNSBinding(new DNSSD(ds));
 
         } catch (final Exception e1) {
             // TODO Auto-generated catch block

@@ -1,8 +1,11 @@
 rootProject.name = 'bacnet-it-misc'
 
 
-include ':bacnet-it-stack'
-project(':bacnet-it-stack').projectDir = new File("../Stack")
+include ':bacnet-it-applicationserviceelement'
+project(':bacnet-it-applicationserviceelement').projectDir = new File("../ApplicationServiceElement")
 
-include ':bacnet-it-wsbinding'
-project(':bacnet-it-wsbinding').projectDir = new File("../WSBinding")
+include ':bacnet-it-transportwsbinding'
+project(':bacnet-it-transportwsbinding').projectDir = new File("../TransportWSBinding")
+
+include ':bacnet-it-directorydnssdbinding'
+project(':bacnet-it-directorydnssdbinding').projectDir = new File("../DirectoryDNSSDBinding")

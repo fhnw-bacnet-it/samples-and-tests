@@ -25,6 +25,7 @@ import java.net.URI;
 
 import ch.fhnw.bacnetit.binding.ws.incoming.WSConnectionServerFactory;
 import ch.fhnw.bacnetit.binding.ws.outgoing.WSConnectionClientFactory;
+import ch.fhnw.bacnetit.directory.bindings.DNSSD;
 import ch.fhnw.bacnetit.lib.encoding.type.primitive.Real;
 import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
 import ch.fhnw.bacnetit.stack.application.BACnetEntityListener;
@@ -36,7 +37,6 @@ import ch.fhnw.bacnetit.stack.application.transaction.Channel;
 import ch.fhnw.bacnetit.stack.application.transaction.ChannelListener;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
 import ch.fhnw.bacnetit.stack.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.stack.network.directory.DirectoryBindingType;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
 import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;
 import io.netty.channel.ChannelHandlerContext;
@@ -52,10 +52,10 @@ public class BasicBasicMain {
     public static void main(final String[] args) throws Exception {
         DirectoryService.init();
         DirectoryService.getInstance()
-                .setDns(new DiscoveryConfig(DirectoryBindingType.DNSSD.name(),
+                .setDNSBinding(new DNSSD(new DiscoveryConfig("DNSSD",
                         "86.119.39.127", "itb.bacnet.ch.",
                         "bds._sub._bacnet._tcp.", "dev._sub._bacnet._tcp.",
-                        "obj._sub._bacnet._tcp.", false));
+                        "obj._sub._bacnet._tcp.", false)));
 
         final KeystoreConfig keystoreConfig = new KeystoreConfig(KS_PATH, PW,
                 "operationaldevcert");

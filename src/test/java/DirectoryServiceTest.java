@@ -33,18 +33,17 @@ import java.util.LinkedList;
 
 import org.junit.Test;
 
+import ch.fhnw.bacnetit.directory.bindings.DNSSD;
 import ch.fhnw.bacnetit.stack.application.configuration.DiscoveryConfig;
 import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.network.directory.DirectoryBindingType;
 import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
-import ch.fhnw.bacnetit.stack.network.directory.bindings.DNSSD;
 
 public class DirectoryServiceTest {
 
     public static final String DUMMY_DEVICE_URL = "ws://127.0.0.1:8080";
     public static final String DUMMY_DNS_URL = "86.119.39.127";
     public DiscoveryConfig discoveryConfig = new DiscoveryConfig(
-            DirectoryBindingType.DNSSD.name(), DUMMY_DNS_URL, "itb.bacnet.ch.",
+            "DNSSD", DUMMY_DNS_URL, "itb.bacnet.ch.",
             "bds._sub._bacnet._tcp.", "bds._sub._bacnet._tcp.",
             "bds._sub._bacnet._tcp.", false);
     // public ConnectionConfig chConfig = new ConnectionConfig("testChannel",
@@ -143,7 +142,7 @@ public class DirectoryServiceTest {
         try {
             DirectoryService.init();
             final DirectoryService directory = DirectoryService.getInstance();
-            directory.setDns(discoveryConfig);
+            directory.setDNSBinding(new DNSSD(discoveryConfig));
             directory.getBds();
         } catch (final UnknownHostException e) {
             e.printStackTrace();
