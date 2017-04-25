@@ -26,9 +26,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID.BACnetEIDOption;
-import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID.BACnetEIDOption;
 
 public class BACnetEIDTest {
 

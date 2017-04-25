@@ -26,18 +26,18 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectIdentifier;
-import ch.fhnw.bacnetit.lib.deviceobjects.BACnetObjectType;
-import ch.fhnw.bacnetit.lib.deviceobjects.Service;
-import ch.fhnw.bacnetit.lib.encoding.type.enumerated.Segmentation;
-import ch.fhnw.bacnetit.lib.encoding.type.primitive.UnsignedInteger;
-import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.lib.service.unconfirmed.IAmRequest;
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.encoding.NetworkPriority;
-import ch.fhnw.bacnetit.stack.encoding.TPDU;
-import ch.fhnw.bacnetit.stack.encoding.UnsignedInteger31;
-import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.NetworkPriority;
+import ch.fhnw.bacnetit.ase.encoding.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger31;
+import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
+import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.misc.deviceobjects.Service;
+import ch.fhnw.bacnetit.misc.encoding.type.enumerated.Segmentation;
+import ch.fhnw.bacnetit.misc.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.misc.service.unconfirmed.IAmRequest;
 
 public class UnicastUnconfIAmReqTest {
 

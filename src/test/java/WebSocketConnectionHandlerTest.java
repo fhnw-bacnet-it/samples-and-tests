@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * ============================================================================
  * GNU General Public License
@@ -21,6 +20,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see http://www.gnu.orglicenses.
  *******************************************************************************/
+
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -35,10 +36,10 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.binding.ws.ControlMessageHandler;
-import ch.fhnw.bacnetit.binding.ws.WSBinaryFrameHandler;
-import ch.fhnw.bacnetit.binding.ws.WSConnectionHandler;
-import ch.fhnw.bacnetit.binding.ws.WSEncoder;
+import ch.fhnw.bacnetit.transportbinding.ws.ControlMessageHandler;
+import ch.fhnw.bacnetit.transportbinding.ws.WSBinaryFrameHandler;
+import ch.fhnw.bacnetit.transportbinding.ws.WSConnectionHandler;
+import ch.fhnw.bacnetit.transportbinding.ws.WSEncoder;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.DefaultChannelPromise;

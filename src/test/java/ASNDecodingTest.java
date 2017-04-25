@@ -25,17 +25,17 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.lib.encoding.asdu.ASDU;
-import ch.fhnw.bacnetit.lib.encoding.asdu.IncomingRequestParser;
-import ch.fhnw.bacnetit.lib.encoding.asdu.SimpleACK;
-import ch.fhnw.bacnetit.lib.encoding.asdu.UnconfirmedRequest;
-import ch.fhnw.bacnetit.lib.encoding.exception.BACnetException;
-import ch.fhnw.bacnetit.lib.encoding.type.constructed.ServicesSupported;
-import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.lib.service.confirmed.WritePropertyRequest;
-import ch.fhnw.bacnetit.lib.service.unconfirmed.IAmRequest;
-import ch.fhnw.bacnetit.lib.service.unconfirmed.WhoIsRequest;
-import ch.fhnw.bacnetit.lib.util.BytesUtil;
+import ch.fhnw.bacnetit.misc.encoding.asdu.ASDU;
+import ch.fhnw.bacnetit.misc.encoding.asdu.IncomingRequestParser;
+import ch.fhnw.bacnetit.misc.encoding.asdu.SimpleACK;
+import ch.fhnw.bacnetit.misc.encoding.asdu.UnconfirmedRequest;
+import ch.fhnw.bacnetit.misc.encoding.exception.BACnetException;
+import ch.fhnw.bacnetit.misc.encoding.type.constructed.ServicesSupported;
+import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.misc.service.confirmed.WritePropertyRequest;
+import ch.fhnw.bacnetit.misc.service.unconfirmed.IAmRequest;
+import ch.fhnw.bacnetit.misc.service.unconfirmed.WhoIsRequest;
+import ch.fhnw.bacnetit.misc.util.BytesUtil;
 
 public class ASNDecodingTest {
 

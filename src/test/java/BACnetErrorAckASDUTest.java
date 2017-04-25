@@ -30,17 +30,17 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.lib.encoding.asdu.ASDU;
-import ch.fhnw.bacnetit.lib.encoding.asdu.BACnetErrorAckASDU;
-import ch.fhnw.bacnetit.lib.encoding.asdu.IncomingRequestParser;
-import ch.fhnw.bacnetit.lib.encoding.exception.BACnetException;
-import ch.fhnw.bacnetit.lib.encoding.type.constructed.ServicesSupported;
-import ch.fhnw.bacnetit.lib.encoding.type.enumerated.ErrorClass;
-import ch.fhnw.bacnetit.lib.encoding.type.enumerated.ErrorCode;
-import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.lib.service.acknowledgment.BACnetErrorAck;
-import ch.fhnw.bacnetit.lib.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.lib.util.BytesUtil;
+import ch.fhnw.bacnetit.misc.encoding.asdu.ASDU;
+import ch.fhnw.bacnetit.misc.encoding.asdu.BACnetErrorAckASDU;
+import ch.fhnw.bacnetit.misc.encoding.asdu.IncomingRequestParser;
+import ch.fhnw.bacnetit.misc.encoding.exception.BACnetException;
+import ch.fhnw.bacnetit.misc.encoding.type.constructed.ServicesSupported;
+import ch.fhnw.bacnetit.misc.encoding.type.enumerated.ErrorClass;
+import ch.fhnw.bacnetit.misc.encoding.type.enumerated.ErrorCode;
+import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.misc.service.acknowledgment.BACnetErrorAck;
+import ch.fhnw.bacnetit.misc.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.misc.util.BytesUtil;
 
 public class BACnetErrorAckASDUTest {
 

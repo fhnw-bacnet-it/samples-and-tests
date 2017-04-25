@@ -23,8 +23,8 @@
  *******************************************************************************/
 import java.io.IOException;
 
-import ch.fhnw.bacnetit.stack.application.configuration.ConnectionConfig;
-import ch.fhnw.bacnetit.stack.application.transaction.Channel;
+import ch.fhnw.bacnetit.ase.application.configuration.ConnectionConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.Channel;
 
 public class TestHelper {
 

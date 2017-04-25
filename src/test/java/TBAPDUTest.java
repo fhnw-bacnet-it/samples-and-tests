@@ -26,12 +26,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.lib.service.unconfirmed.WhoIsRequest;
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.encoding.TPDU;
-import ch.fhnw.bacnetit.stack.encoding.UnsignedInteger8;
-import ch.fhnw.bacnetit.stack.encoding._ByteQueue;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
+import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
+import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.misc.service.unconfirmed.WhoIsRequest;
 
 public class TBAPDUTest {
 

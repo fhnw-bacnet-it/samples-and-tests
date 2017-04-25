@@ -23,22 +23,22 @@
  *******************************************************************************/
 import java.net.URI;
 
-import ch.fhnw.bacnetit.binding.ws.incoming.WSConnectionServerFactory;
-import ch.fhnw.bacnetit.binding.ws.outgoing.WSConnectionClientFactory;
-import ch.fhnw.bacnetit.directory.bindings.DNSSD;
-import ch.fhnw.bacnetit.lib.encoding.type.primitive.Real;
-import ch.fhnw.bacnetit.lib.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.stack.application.BACnetEntityListener;
-import ch.fhnw.bacnetit.stack.application.NetworkPortObj;
-import ch.fhnw.bacnetit.stack.application.configuration.DiscoveryConfig;
-import ch.fhnw.bacnetit.stack.application.configuration.KeystoreConfig;
-import ch.fhnw.bacnetit.stack.application.configuration.TruststoreConfig;
-import ch.fhnw.bacnetit.stack.application.transaction.Channel;
-import ch.fhnw.bacnetit.stack.application.transaction.ChannelListener;
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
-import ch.fhnw.bacnetit.stack.network.transport.ConnectionFactory;
+import ch.fhnw.bacnetit.ase.application.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.NetworkPortObj;
+import ch.fhnw.bacnetit.ase.application.configuration.DiscoveryConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.Channel;
+import ch.fhnw.bacnetit.ase.application.transaction.ChannelListener;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.T_UnitDataIndication;
+import ch.fhnw.bacnetit.ase.network.directory.DirectoryService;
+import ch.fhnw.bacnetit.ase.network.transport.ConnectionFactory;
+import ch.fhnw.bacnetit.directorybinding.dnssd.DNSSD;
+import ch.fhnw.bacnetit.misc.encoding.type.primitive.Real;
+import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.WSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.WSConnectionClientFactory;
 import io.netty.channel.ChannelHandlerContext;
 
 public class BasicBasicMain {

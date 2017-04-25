@@ -33,10 +33,10 @@ import java.util.LinkedList;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.directory.bindings.DNSSD;
-import ch.fhnw.bacnetit.stack.application.configuration.DiscoveryConfig;
-import ch.fhnw.bacnetit.stack.encoding.BACnetEID;
-import ch.fhnw.bacnetit.stack.network.directory.DirectoryService;
+import ch.fhnw.bacnetit.ase.application.configuration.DiscoveryConfig;
+import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
+import ch.fhnw.bacnetit.ase.network.directory.DirectoryService;
+import ch.fhnw.bacnetit.directorybinding.dnssd.DNSSD;
 
 public class DirectoryServiceTest {
 
