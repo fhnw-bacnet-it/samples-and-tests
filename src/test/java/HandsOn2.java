@@ -1,3 +1,27 @@
+
+/*******************************************************************************
+ * ============================================================================
+ * GNU General Public License
+ * ============================================================================
+ *
+ * Copyright (C) 2017 University of Applied Sciences and Arts,
+ * Northwestern Switzerland FHNW,
+ * Institute of Mobile and Distributed Systems.
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see http://www.gnu.orglicenses.
+ *******************************************************************************/
+
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -31,6 +55,7 @@ public class HandsOn2 {
                 new WSConnectionClientFactory());
         connectionFactory.addConnectionServer("ws",
                 new WSConnectionServerFactory(port));
+        
         final Channel channel1 = new Channel();
         final ChannelConfiguration channelConfiguration1 = (ChannelConfiguration)channel1;
         final ApplicationService applicationService1 = (ApplicationService)channel1;
@@ -108,7 +133,7 @@ public class HandsOn2 {
         try {
             DirectoryService.init();
             DirectoryService.getInstance().setDNSBinding(new DNSSD(ds));
-
+ 
         } catch (final Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
