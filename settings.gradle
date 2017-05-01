@@ -1,11 +1,11 @@
-rootProject.name = 'bacnet-it-misc'
+rootProject.name = 'bacnet-it-samples-and-tests'
 
 
-include ':bacnet-it-applicationserviceelement'
-project(':bacnet-it-applicationserviceelement').projectDir = new File("../ApplicationServiceElement")
+include ':bacnet-it-ase'
+project(':bacnet-it-ase').projectDir = new File("../ase")
 
-include ':bacnet-it-transportwsbinding'
-project(':bacnet-it-transportwsbinding').projectDir = new File("../TransportWSBinding")
+include ':bacnet-it-transport-binding-ws'
+project(':bacnet-it-transport-binding-ws').projectDir = new File("../transport-binding-ws")
 
-include ':bacnet-it-directorydnssdbinding'
-project(':bacnet-it-directorydnssdbinding').projectDir = new File("../DirectoryDNSSDBinding")
+include ':bacnet-it-directory-binding-dnssd'
+project(':bacnet-it-directory-binding-dnssd').projectDir = new File("../directory-binding-dnssd")

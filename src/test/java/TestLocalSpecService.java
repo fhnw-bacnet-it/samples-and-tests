@@ -228,10 +228,7 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo.getUri();
-            }
+           
         });
 
         channel1.registerChannelListener(new ChannelListener(devLocal12) {
@@ -248,10 +245,6 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo.getUri();
-            }
         });
 
     }
@@ -365,10 +358,6 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo2.getUri();
-            }
         });
 
         channel2.registerChannelListener(new ChannelListener(devLocal22) {
@@ -386,10 +375,7 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo2.getUri();
-            }
+           
         });
 
     }

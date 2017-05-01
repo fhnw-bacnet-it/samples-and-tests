@@ -9,7 +9,7 @@ apply plugin: 'java-library-distribution'
 version = '0.1.0-SNAPSHOT'
 
 jar {
-    baseName = 'bacnet-it-misc'
+    baseName = 'bacnet-it-samples-and-tests'
     manifest {
         attributes("Implementation-Title": "BACnet/IT Examples and Tests",
                    "Implementation-Version": version)
@@ -25,13 +25,12 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile project(':bacnet-it-applicationserviceelement')
-    compile project(':bacnet-it-transportwsbinding')
-    compile project(':bacnet-it-directorydnssdbinding')
+    compile project(':bacnet-it-ase')
+    compile project(':bacnet-it-transport-binding-ws')
+    compile project(':bacnet-it-directory-binding-dnssd')
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.apache.commons:commons-collections4:4.0'
     compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'dnsjava:dnsjava:2.1.7'
     compile 'io.netty:netty-all:4.1.2.Final'
     testCompile 'junit:junit:4.12'
     testCompile 'ch.qos.logback:logback-classic:1.1.2'

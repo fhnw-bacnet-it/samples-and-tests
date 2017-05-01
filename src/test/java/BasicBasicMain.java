@@ -81,10 +81,7 @@ public class BasicBasicMain {
             public void onError(final String cause) {
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo.getUri();
-            }
+           
         };
         channel.registerChannelListener(channelListener);
 

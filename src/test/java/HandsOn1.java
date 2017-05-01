@@ -28,7 +28,9 @@ import ch.fhnw.bacnetit.ase.application.BACnetEntityListener;
 import ch.fhnw.bacnetit.ase.application.NetworkPortObj;
 import ch.fhnw.bacnetit.ase.application.configuration.DiscoveryConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.ApplicationService;
 import ch.fhnw.bacnetit.ase.application.transaction.Channel;
+import ch.fhnw.bacnetit.ase.application.transaction.ChannelConfiguration;
 import ch.fhnw.bacnetit.ase.application.transaction.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.TPDU;
@@ -57,7 +59,11 @@ public class HandsOn1 {
                 new WSConnectionClientFactory());
         connectionFactory1.addConnectionServer("ws",
                 new WSConnectionServerFactory(port1));
+        
         final Channel channel1 = new Channel();
+        final ChannelConfiguration channelConfiguration1 = (ChannelConfiguration)channel1;
+        final ApplicationService applicationService1 = (ApplicationService)channel1;
+        
 
         final BACnetEID device1inStack1 = new BACnetEID(1001);
         final BACnetEID device2inStack1 = new BACnetEID(1002);
@@ -65,7 +71,7 @@ public class HandsOn1 {
 
         final NetworkPortObj npo1 = new NetworkPortObj("ws", 8080, keystoreConfig1);
 
-        channel1.registerChannelListener(new ChannelListener(device1inStack1) {
+        channelConfiguration1.registerChannelListener(new ChannelListener(device1inStack1) {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
@@ -79,13 +85,10 @@ public class HandsOn1 {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo1.getUri();
-            }
+            
         });
 
-        channel1.registerChannelListener(new ChannelListener(device2inStack1) {
+        channelConfiguration1.registerChannelListener(new ChannelListener(device2inStack1) {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
@@ -99,10 +102,7 @@ public class HandsOn1 {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo1.getUri();
-            }
+           
         });
 
         final BACnetEntityListener bacNetEntityHandler = new BACnetEntityListener() {
@@ -125,9 +125,9 @@ public class HandsOn1 {
             }
 
         };
-        channel1.setEntityListener(bacNetEntityHandler);
+        channelConfiguration1.setEntityListener(bacNetEntityHandler);
 
-        channel1.initializeAndStart(connectionFactory1);
+        channelConfiguration1.initializeAndStart(connectionFactory1);
 
         final ConnectionFactory connectionFactory2 = new ConnectionFactory();
 
@@ -138,6 +138,9 @@ public class HandsOn1 {
                 new WSConnectionServerFactory(port2));
 
         final Channel channel2 = new Channel();
+        final ChannelConfiguration channelConfiguration2 = (ChannelConfiguration)channel2;
+        // final ApplicationService applicationService2 = (ApplicationService)channel2;
+        
 
         final BACnetEID device1inStack2 = new BACnetEID(2001);
         final BACnetEID device2inStack2 = new BACnetEID(2002);
@@ -145,7 +148,7 @@ public class HandsOn1 {
 
         final NetworkPortObj npo2 = new NetworkPortObj("ws", 9090, keystoreConfig2);
 
-        channel2.registerChannelListener(new ChannelListener(device1inStack2) {
+        channelConfiguration2.registerChannelListener(new ChannelListener(device1inStack2) {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
@@ -159,13 +162,10 @@ public class HandsOn1 {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo2.getUri();
-            }
+            
         });
 
-        channel2.registerChannelListener(new ChannelListener(device2inStack2) {
+        channelConfiguration2.registerChannelListener(new ChannelListener(device2inStack2) {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
@@ -179,10 +179,7 @@ public class HandsOn1 {
                 System.err.println(cause);
             }
 
-            @Override
-            public URI getURIfromNPO() {
-                return npo2.getUri();
-            }
+           
         });
 
         final BACnetEntityListener bacNetEntityHandler2 = new BACnetEntityListener() {
@@ -205,9 +202,9 @@ public class HandsOn1 {
             }
 
         };
-        channel2.setEntityListener(bacNetEntityHandler2);
+        channelConfiguration2.setEntityListener(bacNetEntityHandler2);
 
-        channel2.initializeAndStart(connectionFactory2);
+        channelConfiguration2.initializeAndStart(connectionFactory2);
 
         final DiscoveryConfig ds = new DiscoveryConfig(
                 "DNSSD", "86.119.39.127",
@@ -236,7 +233,7 @@ public class HandsOn1 {
         final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(
                 new URI("ws://localhost:9090"), tpdu, 1, true, null);
 
-        channel1.doRequest(unitDataRequest);
+        applicationService1.doRequest(unitDataRequest);
     }
 
 }

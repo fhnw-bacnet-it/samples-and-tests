@@ -1,3 +1,3 @@
-# BACnet/IT - Miscellaneous
+# Samples and Tests
 
-Consider the hands on under https://github.com/fhnw-BACnet-IT/ApplicationServiceElement
+Consider the GitHub Page under https://github.com/fhnw-BACnet-IT/fhnw-BACnet-IT.github.io
