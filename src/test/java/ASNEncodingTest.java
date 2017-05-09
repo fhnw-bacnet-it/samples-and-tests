@@ -27,18 +27,18 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectIdentifier;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectType;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetPropertyIdentifier;
-import ch.fhnw.bacnetit.misc.encoding.type.enumerated.Segmentation;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.UnsignedInteger;
-import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.misc.service.confirmed.ConfirmedRequestService;
-import ch.fhnw.bacnetit.misc.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.misc.service.unconfirmed.IAmRequest;
-import ch.fhnw.bacnetit.misc.service.unconfirmed.UnconfirmedRequestService;
-import ch.fhnw.bacnetit.misc.service.unconfirmed.WhoIsRequest;
-import ch.fhnw.bacnetit.misc.util.BytesUtil;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.Segmentation;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ConfirmedRequestService;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.unconfirmed.IAmRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.unconfirmed.UnconfirmedRequestService;
+import ch.fhnw.bacnetit.samplesandtests.service.unconfirmed.WhoIsRequest;
+import ch.fhnw.bacnetit.samplesandtests.util.BytesUtil;
 
 public class ASNEncodingTest {
 

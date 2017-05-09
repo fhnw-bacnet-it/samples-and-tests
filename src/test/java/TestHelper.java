@@ -23,8 +23,8 @@
  *******************************************************************************/
 import java.io.IOException;
 
-import ch.fhnw.bacnetit.ase.application.configuration.ConnectionConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.Channel;
+import ch.fhnw.bacnetit.ase.application.configuration.api.ConnectionConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
 
 public class TestHelper {
 
@@ -39,12 +39,12 @@ public class TestHelper {
          */
     }
 
-    public static Channel createTestingTransactionChannel(final int serverport)
+    public static ASEChannel createTestingTransactionChannel(final int serverport)
             throws Exception {
         final ConnectionConfig connectionConfig = new ConnectionConfig("test",
                 "ws", 8080, 1);
 
-        final Channel channel = new Channel();
+        final ASEChannel channel = new ASEChannel();
         // channel.setConnectionFactory(new
         // ConnectionFactory(connectionConfig));
         // channel.initializeAndStart();

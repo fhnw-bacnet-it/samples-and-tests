@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.encoding.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
 import ch.fhnw.bacnetit.transportbinding.ws.WSBinaryFrameHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

@@ -25,23 +25,23 @@
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import ch.fhnw.bacnetit.ase.application.BACnetEntityListener;
-import ch.fhnw.bacnetit.ase.application.NetworkPortObj;
-import ch.fhnw.bacnetit.ase.application.configuration.DiscoveryConfig;
-import ch.fhnw.bacnetit.ase.application.configuration.KeystoreConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.ApplicationService;
-import ch.fhnw.bacnetit.ase.application.transaction.Channel;
-import ch.fhnw.bacnetit.ase.application.transaction.ChannelConfiguration;
-import ch.fhnw.bacnetit.ase.application.transaction.ChannelListener;
-import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
-import ch.fhnw.bacnetit.ase.encoding.TPDU;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataRequest;
-import ch.fhnw.bacnetit.ase.network.directory.DirectoryService;
-import ch.fhnw.bacnetit.ase.network.transport.ConnectionFactory;
-import ch.fhnw.bacnetit.directorybinding.dnssd.DNSSD;
-import ch.fhnw.bacnetit.transportbinding.ws.incoming.WSConnectionServerFactory;
-import ch.fhnw.bacnetit.transportbinding.ws.outgoing.WSConnectionClientFactory;
+import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
+import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelConfiguration;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelFactory;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
+import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.ase.network.transport.api.ConnectionFactory;
+import ch.fhnw.bacnetit.directorybinding.dnssd.api.DNSSD;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.WSConnectionClientFactory;
 import io.netty.channel.ChannelHandlerContext;
 
 public class HandsOn2 {
@@ -56,9 +56,9 @@ public class HandsOn2 {
         connectionFactory.addConnectionServer("ws",
                 new WSConnectionServerFactory(port));
         
-        final Channel channel1 = new Channel();
-        final ChannelConfiguration channelConfiguration1 = (ChannelConfiguration)channel1;
-        final ApplicationService applicationService1 = (ApplicationService)channel1;
+        final ch.fhnw.bacnetit.ase.application.transaction.api.Channel channel = ChannelFactory.getInstance();
+        final ChannelConfiguration channelConfiguration1 = channel;
+        final ApplicationService applicationService1 = channel;
 
         final BACnetEID device1inStack1 = new BACnetEID(1001);
         final BACnetEID device2inStack1 = new BACnetEID(1002);
@@ -70,7 +70,7 @@ public class HandsOn2 {
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
                     final ChannelHandlerContext ctx) {
-                System.out.println(this.eid.getIdentifierAsString()
+                System.out.println(this.getEID().getIdentifierAsString()
                         + " got an indication" + tUnitDataIndication.getData());
             }
 
@@ -87,7 +87,7 @@ public class HandsOn2 {
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
                     final ChannelHandlerContext ctx) {
-                System.out.println(this.eid.getIdentifierAsString()
+                System.out.println(this.getEID().getIdentifierAsString()
                         + " got an indication" + tUnitDataIndication.getData());
             }
 

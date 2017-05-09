@@ -29,36 +29,37 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import ch.fhnw.bacnetit.ase.application.BACnetEntityListener;
-import ch.fhnw.bacnetit.ase.application.NetworkPortObj;
-import ch.fhnw.bacnetit.ase.application.configuration.KeystoreConfig;
-import ch.fhnw.bacnetit.ase.application.configuration.TruststoreConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.ApplicationService;
-import ch.fhnw.bacnetit.ase.application.transaction.Channel;
-import ch.fhnw.bacnetit.ase.application.transaction.ChannelConfiguration;
-import ch.fhnw.bacnetit.ase.application.transaction.ChannelListener;
-import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
-import ch.fhnw.bacnetit.ase.encoding.TPDU;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataRequest;
-import ch.fhnw.bacnetit.ase.network.directory.DirectoryBinding;
-import ch.fhnw.bacnetit.ase.network.directory.DirectoryService;
-import ch.fhnw.bacnetit.ase.network.transport.ConnectionFactory;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectIdentifier;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectType;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetPropertyIdentifier;
-import ch.fhnw.bacnetit.misc.encoding.asdu.ASDU;
-import ch.fhnw.bacnetit.misc.encoding.asdu.ConfirmedRequest;
-import ch.fhnw.bacnetit.misc.encoding.asdu.IncomingRequestParser;
-import ch.fhnw.bacnetit.misc.encoding.asdu.SimpleACK;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.SequenceOf;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.ServicesSupported;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.CharacterString;
-import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.misc.service.confirmed.AddListElementRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.WSSConnectionServerFactory;
-import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.WSSConnectionClientFactory;
+import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
+import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelConfiguration;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelFactory;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
+import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryBinding;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.ase.network.transport.api.ConnectionFactory;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.encoding.asdu.ASDU;
+import ch.fhnw.bacnetit.samplesandtests.encoding.asdu.ConfirmedRequest;
+import ch.fhnw.bacnetit.samplesandtests.encoding.asdu.IncomingRequestParser;
+import ch.fhnw.bacnetit.samplesandtests.encoding.asdu.SimpleACK;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.SequenceOf;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.ServicesSupported;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.CharacterString;
+import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.AddListElementRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;
 import io.netty.channel.ChannelHandlerContext;
 
 public class HandsOn4 {
@@ -86,9 +87,9 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(device1inStack1Uri.getPort(), keystoreConfig,
                         truststoreConfig));
 
-        final Channel channel1 = new Channel();
-        final ChannelConfiguration channelConfiguration1 = channel1;
-        final ApplicationService applicationService1 = channel1;
+        final ch.fhnw.bacnetit.ase.application.transaction.api.Channel channel = ChannelFactory.getInstance();
+        final ChannelConfiguration channelConfiguration1 = channel;
+        final ApplicationService applicationService1 = channel;
 
         final NetworkPortObj npo1 = new NetworkPortObj("wss", device1inStack1Uri.getPort(),
                 keystoreConfig);
@@ -191,7 +192,7 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(port2, keystoreConfig,
                         truststoreConfig));
 
-        final Channel channel2 = new Channel();
+        final ch.fhnw.bacnetit.ase.application.transaction.api.Channel channel2 = ChannelFactory.getInstance();
         final ChannelConfiguration channelConfiguration2 = channel2;
         final ApplicationService applicationService2 = channel2;
 
@@ -204,7 +205,7 @@ public class HandsOn4 {
                     public void onIndication(
                             final T_UnitDataIndication tUnitDataIndication,
                             final ChannelHandlerContext ctx) {
-                        System.out.println(this.eid.getIdentifierAsString()
+                        System.out.println(this.getEID().getIdentifierAsString()
                                 + " got an indication"
                                 + tUnitDataIndication.getData());
                         final ServicesSupported servicesSupported = new ServicesSupported();

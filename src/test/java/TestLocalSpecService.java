@@ -31,53 +31,53 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.application.BACnetEntityListener;
-import ch.fhnw.bacnetit.ase.application.NetworkPortObj;
-import ch.fhnw.bacnetit.ase.application.configuration.DiscoveryConfig;
-import ch.fhnw.bacnetit.ase.application.configuration.KeystoreConfig;
-import ch.fhnw.bacnetit.ase.application.configuration.TruststoreConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.Channel;
-import ch.fhnw.bacnetit.ase.application.transaction.ChannelListener;
+import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
+import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
 import ch.fhnw.bacnetit.ase.application.transaction.Transaction;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionKey;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionManagerListener;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionState;
-import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
-import ch.fhnw.bacnetit.ase.encoding.TPDU;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataIndication;
-import ch.fhnw.bacnetit.ase.encoding.T_UnitDataRequest;
-import ch.fhnw.bacnetit.ase.network.directory.DirectoryService;
-import ch.fhnw.bacnetit.ase.network.transport.ConnectionFactory;
-import ch.fhnw.bacnetit.directorybinding.dnssd.DNSSD;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectIdentifier;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetObjectType;
-import ch.fhnw.bacnetit.misc.deviceobjects.BACnetPropertyIdentifier;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.DateTime;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.PropertyReference;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.PropertyValue;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.SequenceOf;
-import ch.fhnw.bacnetit.misc.encoding.type.constructed.TimeStamp;
-import ch.fhnw.bacnetit.misc.encoding.type.enumerated.EventState;
-import ch.fhnw.bacnetit.misc.encoding.type.enumerated.EventType;
-import ch.fhnw.bacnetit.misc.encoding.type.enumerated.LifeSafetyOperation;
-import ch.fhnw.bacnetit.misc.encoding.type.enumerated.NotifyType;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.Boolean;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.CharacterString;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.Real;
-import ch.fhnw.bacnetit.misc.encoding.type.primitive.UnsignedInteger;
-import ch.fhnw.bacnetit.misc.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.misc.service.confirmed.AcknowledgeAlarmRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.ConfirmedCovNotificationRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.ConfirmedEventNotificationRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.LifeSafetyOperationRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.SubscribeCOVPropertyRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.SubscribeCOVRequest;
-import ch.fhnw.bacnetit.misc.service.confirmed.WritePropertyRequest;
-import ch.fhnw.bacnetit.transportbinding.ws.incoming.WSConnectionServerFactory;
-import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.WSSConnectionServerFactory;
-import ch.fhnw.bacnetit.transportbinding.ws.outgoing.WSConnectionClientFactory;
-import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.WSSConnectionClientFactory;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
+import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.ase.network.transport.api.ConnectionFactory;
+import ch.fhnw.bacnetit.directorybinding.dnssd.api.DNSSD;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.DateTime;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.PropertyReference;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.PropertyValue;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.SequenceOf;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.TimeStamp;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.EventState;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.EventType;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.LifeSafetyOperation;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.NotifyType;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.Boolean;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.CharacterString;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.Real;
+import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.AcknowledgeAlarmRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ConfirmedCovNotificationRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ConfirmedEventNotificationRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.LifeSafetyOperationRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.SubscribeCOVPropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.SubscribeCOVRequest;
+import ch.fhnw.bacnetit.samplesandtests.service.confirmed.WritePropertyRequest;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.WSConnectionClientFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -100,8 +100,8 @@ public class TestLocalSpecService {
     final BACnetEID devLocal21 = new BACnetEID(2001);
     final BACnetEID devLocal22 = new BACnetEID(2002);
 
-    private Channel channel1;
-    private Channel channel2;
+    private ASEChannel channel1;
+    private ASEChannel channel2;
     private DiscoveryConfig ds;
 
     static volatile T_UnitDataIndication indicationTodevLocal11 = null;
@@ -143,7 +143,7 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal1NoTls));
 
         // Run the channel
-        channel1 = new Channel();
+        channel1 = new ASEChannel();
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control
@@ -275,7 +275,7 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal2NoTls));
 
         // Run the channel
-        channel2 = new Channel();
+        channel2 = new ASEChannel();
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control

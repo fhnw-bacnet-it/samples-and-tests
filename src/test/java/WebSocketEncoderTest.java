@@ -26,11 +26,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.application.transaction.Channel;
-import ch.fhnw.bacnetit.ase.encoding.BACnetEID;
-import ch.fhnw.bacnetit.ase.encoding.TPDU;
+import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
 import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
+import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
 import ch.fhnw.bacnetit.ase.network.transport.util.ByteBufLogger;
 import ch.fhnw.bacnetit.ase.network.transport.util.MessageLogger;
 import ch.fhnw.bacnetit.ase.network.transport.util.PipelineLogger;
@@ -69,7 +69,7 @@ public class WebSocketEncoderTest {
                 new PipelineLogger(), new WebSocket13FrameEncoder(false),
                 new WebSocket13FrameDecoder(false, false, 1024),
                 new ControlMessageHandler(), new WSBinaryFrameHandler(),
-                new WSEncoder(), new MessageLogger(), new Channel());
+                new WSEncoder(), new MessageLogger(), new ASEChannel());
         final TPDU tpdu = new TPDU(new BACnetEID(1001), new BACnetEID(1002),
                 new _ByteQueue().popAll());
         tpdu.setInvokeId(new UnsignedInteger8(1));
