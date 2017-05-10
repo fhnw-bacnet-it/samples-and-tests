@@ -30,9 +30,9 @@ import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
-import ch.fhnw.bacnetit.samplesandtests.deviceobjects.Service;
-import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.samplesandtests.service.unconfirmed.WhoIsRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.Service;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.api.service.unconfirmed.WhoIsRequest;
 
 //3.1 Unicast Unconfirmed Who-Is Request with No Filters
 public class UnicastUnconfWhoIsTest {

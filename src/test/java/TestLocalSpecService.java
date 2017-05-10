@@ -49,31 +49,31 @@ import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
 import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
 import ch.fhnw.bacnetit.ase.network.transport.api.ConnectionFactory;
 import ch.fhnw.bacnetit.directorybinding.dnssd.api.DNSSD;
-import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectIdentifier;
-import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetObjectType;
-import ch.fhnw.bacnetit.samplesandtests.deviceobjects.BACnetPropertyIdentifier;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.DateTime;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.PropertyReference;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.PropertyValue;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.SequenceOf;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.constructed.TimeStamp;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.EventState;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.EventType;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.LifeSafetyOperation;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.enumerated.NotifyType;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.Boolean;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.CharacterString;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.Real;
-import ch.fhnw.bacnetit.samplesandtests.encoding.type.primitive.UnsignedInteger;
-import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.AcknowledgeAlarmRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ConfirmedCovNotificationRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ConfirmedEventNotificationRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.LifeSafetyOperationRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.SubscribeCOVPropertyRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.SubscribeCOVRequest;
-import ch.fhnw.bacnetit.samplesandtests.service.confirmed.WritePropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.DateTime;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.PropertyReference;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.PropertyValue;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.SequenceOf;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.TimeStamp;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.enumerated.EventState;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.enumerated.EventType;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.enumerated.LifeSafetyOperation;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.enumerated.NotifyType;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.Boolean;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.CharacterString;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.Real;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.UnsignedInteger;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.AcknowledgeAlarmRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ConfirmedCovNotificationRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ConfirmedEventNotificationRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.LifeSafetyOperationRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVPropertyRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.WritePropertyRequest;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.WSConnectionClientFactory;
@@ -219,7 +219,7 @@ public class TestLocalSpecService {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
-                    final ChannelHandlerContext ctx) {
+                    final Object ctx) {
                 indicationTodevLocal11 = tUnitDataIndication;
             }
 
@@ -236,7 +236,7 @@ public class TestLocalSpecService {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
-                    final ChannelHandlerContext ctx) {
+                    final Object ctx) {
                 indicationTodevLocal12 = tUnitDataIndication;
             }
 
@@ -349,7 +349,7 @@ public class TestLocalSpecService {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
-                    final ChannelHandlerContext ctx) {
+                    final Object ctx) {
                 indicationTodevLocal21 = tUnitDataIndication;
             }
 
@@ -365,7 +365,7 @@ public class TestLocalSpecService {
             @Override
             public void onIndication(
                     final T_UnitDataIndication tUnitDataIndication,
-                    final ChannelHandlerContext ctx) {
+                    final Object ctx) {
 
                 indicationTodevLocal22 = tUnitDataIndication;
             }

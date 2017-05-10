@@ -30,8 +30,8 @@ import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
-import ch.fhnw.bacnetit.samplesandtests.encoding.util.ByteQueue;
-import ch.fhnw.bacnetit.samplesandtests.service.unconfirmed.WhoIsRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.api.service.unconfirmed.WhoIsRequest;
 
 public class TBAPDUTest {
 
