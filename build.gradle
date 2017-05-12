@@ -6,13 +6,13 @@ apply plugin: 'jacoco'
 apply plugin: 'java-library-distribution'
 
 def apiVersion = '0.9.0'
-def versionTag = 'SNAPSHOT'
+def versionTag = '-SNAPSHOT'
 
 if (hasProperty('isRelease')) {
-    versionTag = 'RELEASE'
+    versionTag = ''
 }
 
-version = "${apiVersion}-${versionTag}"
+version = "${apiVersion}${versionTag}"
 
 jar {
     baseName = 'bacnet-it-samples-and-tests'
@@ -25,7 +25,6 @@ jar {
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    mavenCentral()
     jcenter()
 }
 
