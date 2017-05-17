@@ -51,8 +51,8 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CorsBasicAuth {
-    final String URL = "http://86.119.38.14:8080";
-    final String URLTLS = "https://86.119.38.14:8080";
+    final String URL = "http://0.0.0.0:8080";
+    final String URLTLS = "https://0.0.0.0:8080";
     final String truststorePath = "/Users/IMVS/git/bacnet-it/stores/truststore.jks";
     final String keystorePath = "/Users/IMVS/git/bacnet-it/stores/keystoreH1.jks";
     static volatile String validSessionRuntime;

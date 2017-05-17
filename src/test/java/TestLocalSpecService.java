@@ -78,7 +78,6 @@ import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFacto
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.WSConnectionClientFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * @author IMVS, FHNW
@@ -228,7 +227,6 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-           
         });
 
         channel1.registerChannelListener(new ChannelListener(devLocal12) {
@@ -375,15 +373,14 @@ public class TestLocalSpecService {
                 System.err.println(cause);
             }
 
-           
         });
 
     }
 
     private void setupDiscovery() {
-        ds = new DiscoveryConfig("DNSSD",
-                "86.119.39.127", "itb.bacnet.ch.", "bds._sub._bacnet._tcp.",
-                "dev._sub._bacnet._tcp.", "obj._sub._bacnet._tcp.", false);
+        ds = new DiscoveryConfig("DNSSD", "86.119.39.127", "itb.bacnet.ch.",
+                "bds._sub._bacnet._tcp.", "dev._sub._bacnet._tcp.",
+                "obj._sub._bacnet._tcp.", false);
 
         try {
             DirectoryService.init();

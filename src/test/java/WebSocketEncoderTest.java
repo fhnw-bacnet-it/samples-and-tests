@@ -21,7 +21,6 @@
  * along with this program. If not, see http://www.gnu.orglicenses.
  *******************************************************************************/
 
-
 import java.io.IOException;
 
 import org.junit.Test;

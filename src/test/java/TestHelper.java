@@ -39,8 +39,8 @@ public class TestHelper {
          */
     }
 
-    public static ASEChannel createTestingTransactionChannel(final int serverport)
-            throws Exception {
+    public static ASEChannel createTestingTransactionChannel(
+            final int serverport) throws Exception {
         final ConnectionConfig connectionConfig = new ConnectionConfig("test",
                 "ws", 8080, 1);
 

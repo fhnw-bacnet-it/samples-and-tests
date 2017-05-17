@@ -21,7 +21,6 @@
  * along with this program. If not, see http://www.gnu.orglicenses.
  *******************************************************************************/
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

@@ -41,11 +41,10 @@ import ch.fhnw.bacnetit.directorybinding.dnssd.api.DNSSD;
 public class DirectoryServiceTest {
 
     public static final String DUMMY_DEVICE_URL = "ws://127.0.0.1:8080";
-    public static final String DUMMY_DNS_URL = "86.119.39.127";
-    public DiscoveryConfig discoveryConfig = new DiscoveryConfig(
-            "DNSSD", DUMMY_DNS_URL, "itb.bacnet.ch.",
-            "bds._sub._bacnet._tcp.", "bds._sub._bacnet._tcp.",
-            "bds._sub._bacnet._tcp.", false);
+    public static final String DUMMY_DNS_URL = "0.0.0.0";
+    public DiscoveryConfig discoveryConfig = new DiscoveryConfig("DNSSD",
+            DUMMY_DNS_URL, "itb.bacnet.ch.", "bds._sub._bacnet._tcp.",
+            "bds._sub._bacnet._tcp.", "bds._sub._bacnet._tcp.", false);
     // public ConnectionConfig chConfig = new ConnectionConfig("testChannel",
     // "ws",8080, 1);
     // public DeviceConfig devConfig = new DeviceConfig("1234", true, false);
