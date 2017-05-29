@@ -70,54 +70,54 @@ public class AddListElementRequest extends ConfirmedRequestService {
         return this.listOfElements;
     }
 
-    // @SuppressWarnings("unchecked")
-    // @Override
-    // public AcknowledgementService handle(LocalDevice localDevice, Address
-    // from, OctetString linkService)
-    // throws BACnetException {
-    // BACnetObject obj = localDevice.getObject(objectIdentifier);
-    // if (obj == null)
-    // throw createException(ErrorClass.property, ErrorCode.writeAccessDenied,
-    // new UnsignedInteger(1));
-    //
-    // Encodable e;
-    // try {
-    // e = obj.getProperty(propertyIdentifier, propertyArrayIndex);
-    // }
-    // catch (BACnetServiceException ex) {
-    // throw createException(ErrorClass.property, ErrorCode.invalidArrayIndex,
-    // new UnsignedInteger(1));
-    // }
-    // if (!(e instanceof SequenceOf<?>))
-    // throw createException(ErrorClass.property,
-    // ErrorCode.propertyIsNotAnArray, new UnsignedInteger(1));
-    //
-    // SequenceOf<Encodable> propList = (SequenceOf<Encodable>) e;
-    //
-    // PropertyValue pv = new PropertyValue(propertyIdentifier,
-    // propertyArrayIndex, listOfElements, null);
-    // if (localDevice.getEventHandler().checkAllowPropertyWrite(obj, pv)) {
-    // for (Encodable pr : listOfElements) {
-    // if (!propList.contains(pr))
-    // propList.add(pr);
-    // }
-    //
-    // localDevice.getEventHandler().propertyWritten(obj, pv);
-    // }
-    // else
-    // throw createException(ErrorClass.property, ErrorCode.writeAccessDenied,
-    // new UnsignedInteger(1));
-    //
-    // return null;
-    // }
-
-    // private BACnetErrorException createException(ErrorClass errorClass,
-    // ErrorCode errorCode,
-    // UnsignedInteger firstFailedElementNumber) {
-    // return new BACnetErrorException(new ChangeListError(getChoiceId(), new
-    // BACnetError(errorClass, errorCode),
-    // firstFailedElementNumber));
-    // }
+//     @SuppressWarnings("unchecked")
+//     @Override
+//     public AcknowledgementService handle(LocalDevice localDevice, Address
+//     from, OctetString linkService)
+//     throws BACnetException {
+//     BACnetObject obj = localDevice.getObject(objectIdentifier);
+//     if (obj == null)
+//     throw createException(ErrorClass.property, ErrorCode.writeAccessDenied,
+//     new UnsignedInteger(1));
+//    
+//     Encodable e;
+//     try {
+//     e = obj.getProperty(propertyIdentifier, propertyArrayIndex);
+//     }
+//     catch (BACnetServiceException ex) {
+//     throw createException(ErrorClass.property, ErrorCode.invalidArrayIndex,
+//     new UnsignedInteger(1));
+//     }
+//     if (!(e instanceof SequenceOf<?>))
+//     throw createException(ErrorClass.property,
+//     ErrorCode.propertyIsNotAnArray, new UnsignedInteger(1));
+//    
+//     SequenceOf<Encodable> propList = (SequenceOf<Encodable>) e;
+//    
+//     PropertyValue pv = new PropertyValue(propertyIdentifier,
+//     propertyArrayIndex, listOfElements, null);
+//     if (localDevice.getEventHandler().checkAllowPropertyWrite(obj, pv)) {
+//     for (Encodable pr : listOfElements) {
+//     if (!propList.contains(pr))
+//     propList.add(pr);
+//     }
+//    
+//     localDevice.getEventHandler().propertyWritten(obj, pv);
+//     }
+//     else
+//     throw createException(ErrorClass.property, ErrorCode.writeAccessDenied,
+//     new UnsignedInteger(1));
+//    
+//     return null;
+//     }
+//
+//     private BACnetErrorException createException(ErrorClass errorClass,
+//     ErrorCode errorCode,
+//     UnsignedInteger firstFailedElementNumber) {
+//     return new BACnetErrorException(new ChangeListError(getChoiceId(), new
+//     BACnetError(errorClass, errorCode),
+//     firstFailedElementNumber));
+//     }
 
     @Override
     public void write(final ByteQueue queue) {
@@ -132,8 +132,6 @@ public class AddListElementRequest extends ConfirmedRequestService {
     }
 
     public AddListElementRequest(final ByteQueue queue) throws BACnetException {
-        // queue.pop();
-
         objectIdentifier = read(queue, BACnetObjectIdentifier.class, 0);
 
         propertyIdentifier = read(queue, BACnetPropertyIdentifier.class, 1);
