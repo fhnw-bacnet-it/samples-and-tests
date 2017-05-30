@@ -80,7 +80,11 @@ tasks.withType(FindBugs) {
     }
 }
 
+// make tar.gz
+distTar {
+    compression = Compression.GZIP
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '3.3'
 }
-
