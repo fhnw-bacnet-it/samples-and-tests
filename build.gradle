@@ -60,7 +60,7 @@ findbugs {
 
 jacocoTestReport {
     reports {
-        xml.enabled = true
+        xml.enabled = false
         csv.enabled = false
         html.enabled = true
     }
