@@ -43,7 +43,7 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(device1inStack1Uri.getPort(),
                         keystoreConfig, truststoreConfig));
 
-        final ch.fhnw.bacnetit.ase.application.service.Channel channel = ChannelFactory
+        final ch.fhnw.bacnetit.ase.application.transaction.api.Channel channel = ChannelFactory
                 .getInstance();
         final ChannelConfiguration channelConfiguration1 = channel;
         final ApplicationService applicationService1 = channel;
@@ -149,7 +149,7 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(port2, keystoreConfig,
                         truststoreConfig));
 
-        final ch.fhnw.bacnetit.ase.application.service.Channel channel2 = ChannelFactory
+        final ch.fhnw.bacnetit.ase.application.transaction.api.Channel channel2 = ChannelFactory
                 .getInstance();
         final ChannelConfiguration channelConfiguration2 = channel2;
         final ApplicationService applicationService2 = channel2;
