@@ -36,7 +36,7 @@ import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
 import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
+import ch.fhnw.bacnetit.ase.application.service.ASEChannel;
 import ch.fhnw.bacnetit.ase.application.transaction.Transaction;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionKey;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionManagerListener;

@@ -24,7 +24,7 @@
 import java.io.IOException;
 
 import ch.fhnw.bacnetit.ase.application.configuration.api.ConnectionConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
+import ch.fhnw.bacnetit.ase.application.service.ASEChannel;
 
 public class TestHelper {
 

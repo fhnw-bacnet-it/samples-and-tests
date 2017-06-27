@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.application.transaction.ASEChannel;
+import ch.fhnw.bacnetit.ase.application.service.ASEChannel;
 import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
