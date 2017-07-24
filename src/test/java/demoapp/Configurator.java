@@ -7,10 +7,14 @@ import java.net.URI;
 // Import packages from the BACnet/IT opensource projects
 // By convention just classes within an api package should be used
 import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.service.ASEService;
 import ch.fhnw.bacnetit.ase.application.transaction.api.*;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
 import ch.fhnw.bacnetit.ase.network.transport.api.*;
+import ch.fhnw.bacnetit.transportbinding.ws.BindingConfiguration;
+import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
+import ch.fhnw.bacnetit.transportbinding.ws.ConnectionFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.*;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.*;
 
@@ -20,12 +24,13 @@ public class Configurator {
         
         int wsServerPort1 = 8080;
         int wsServerPort2 = 9090;
+        
 
         /*
          *********************** SETUP ASE 1 ***********************
          */
-        final Channel channel1 = ChannelFactory.getInstance();
-        final ChannelConfiguration channelConfiguration1 = channel1;
+        final ASEServices channel1 = ChannelFactory.getInstance();
+        
 
         // Configure BACnetEntity Listener to handle Control Messages
         final BACnetEntityListener bacNetEntityHandler1 = new BACnetEntityListener() {
@@ -49,7 +54,7 @@ public class Configurator {
 
         };
 
-        channelConfiguration1.setEntityListener(bacNetEntityHandler1);
+        ((ChannelConfiguration)channel1).setEntityListener(bacNetEntityHandler1);
 
         // Configure the transport binding
         final ConnectionFactory connectionFactory1 = new ConnectionFactory();
@@ -58,13 +63,17 @@ public class Configurator {
  
         connectionFactory1.addConnectionServer("ws",
                 new WSConnectionServerFactory(wsServerPort1));
-        channelConfiguration1.initializeAndStart(connectionFactory1);
+        
+        BindingConfiguration bindingConfiguration = new BindingInitializer();
+        ((ChannelConfiguration)channel1).addBinding((ASEService)bindingConfiguration);
+        bindingConfiguration.initializeAndStart(connectionFactory1);
+   
+      
 
         /*
          *********************** SETUP ASE 2 ***********************
          */
-        final Channel channel2 = ChannelFactory.getInstance();
-        final ChannelConfiguration channelConfiguration2 = channel2;
+        final ASEServices channel2 = ChannelFactory.getInstance();
 
         // Configure BACnetEntity Listener to handle Control Messages
         final BACnetEntityListener bacNetEntityHandler2 = new BACnetEntityListener() {
@@ -88,7 +97,7 @@ public class Configurator {
 
         };
 
-        channelConfiguration2.setEntityListener(bacNetEntityHandler2);
+        ((ChannelConfiguration)channel2).setEntityListener(bacNetEntityHandler2);
 
         // Configure the transport binding
         final ConnectionFactory connectionFactory2 = new ConnectionFactory();
@@ -97,22 +106,25 @@ public class Configurator {
 
         connectionFactory2.addConnectionServer("ws",
                 new WSConnectionServerFactory(wsServerPort2));
-        channelConfiguration2.initializeAndStart(connectionFactory2);
-
+        
+        BindingConfiguration bindingConfiguration2 = new BindingInitializer();
+        ((ChannelConfiguration)channel2).addBinding((ASEService)bindingConfiguration2);
+        bindingConfiguration2.initializeAndStart(connectionFactory2);
+ 
         /*
          *********************** Register BACnet devices from application 1 in ASE 1 ***********************
          */
-        AbstractApplication application1 = new Application1(channel1);
+        AbstractApplication application1 = new Application1((ApplicationService)channel1);
         for (ChannelListener device : application1.devices) {
-            channelConfiguration1.registerChannelListener(device);
+            ((ChannelConfiguration)channel1).registerChannelListener(device);
         }
 
         /*
          *********************** Register BACnet devices from application 2 in ASE 2 ***********************
          */
-        AbstractApplication application2 = new Application2(channel2);
+        AbstractApplication application2 = new Application2((ApplicationService)channel2);
         for (ChannelListener device : application2.devices) {
-            channelConfiguration2.registerChannelListener(device);
+            ((ChannelConfiguration)channel2).registerChannelListener(device);
         }
 
         DirectoryService.init();

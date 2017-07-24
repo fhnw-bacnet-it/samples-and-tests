@@ -24,7 +24,7 @@
 import java.io.IOException;
 
 import ch.fhnw.bacnetit.ase.application.configuration.api.ConnectionConfig;
-import ch.fhnw.bacnetit.ase.application.service.ASEChannel;
+import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
 
 public class TestHelper {
 
@@ -39,12 +39,12 @@ public class TestHelper {
          */
     }
 
-    public static ASEChannel createTestingTransactionChannel(
+    public static BindingInitializer createTestingTransactionChannel(
             final int serverport) throws Exception {
         final ConnectionConfig connectionConfig = new ConnectionConfig("test",
                 "ws", 8080, 1);
 
-        final ASEChannel channel = new ASEChannel();
+        final BindingInitializer channel = new BindingInitializer();
         // channel.setConnectionFactory(new
         // ConnectionFactory(connectionConfig));
         // channel.initializeAndStart();

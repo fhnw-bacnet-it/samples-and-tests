@@ -5,9 +5,10 @@ package demoapp;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
 // Import packages from the BACnet/IT opensource projects
 // By convention just classes within an api package should be used
-import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ASEServices;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
