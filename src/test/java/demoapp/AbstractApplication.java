@@ -5,14 +5,14 @@ import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
 // Import packages from the BACnet/IT opensource projects
 // By convention just classes within an api package should be used
-import ch.fhnw.bacnetit.ase.application.transaction.api.ASEServices;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
 import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
+// BACnet4J components
 import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;
 import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;
 import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetPropertyIdentifier;
@@ -61,7 +61,7 @@ public abstract class AbstractApplication {
         final TPDU tpdu = new TPDU(from, to,
                 byteQueue.popAll());
 
-        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, true, null);
+        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, null);
 
         applicationService.doRequest(unitDataRequest);
 
@@ -80,7 +80,7 @@ public abstract class AbstractApplication {
                 confirmedBacnetMessage);
         
 
-        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, true, null);
+        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, null);
 
         applicationService.doRequest(unitDataRequest);
     }

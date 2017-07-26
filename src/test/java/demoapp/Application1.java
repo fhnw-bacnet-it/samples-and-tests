@@ -4,12 +4,8 @@ package demoapp;
 // Import Java components
 import java.net.URI;
 
-import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;
-
-// Import packages from the BACnet/IT opensource projects
-// By convention just classes within an api package should be used
-
-import ch.fhnw.bacnetit.ase.application.transaction.api.ASEServices;
+import ch.fhnw.bacnetit.ase.application.service.api.ASEServices;
+import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;

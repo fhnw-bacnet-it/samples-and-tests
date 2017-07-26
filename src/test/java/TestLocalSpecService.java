@@ -31,11 +31,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
 import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
 import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
 import ch.fhnw.bacnetit.ase.application.transaction.Transaction;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionKey;
 import ch.fhnw.bacnetit.ase.application.transaction.TransactionManagerListener;
@@ -72,8 +72,8 @@ import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyReques
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVPropertyRequest;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVRequest;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.WritePropertyRequest;
-import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
-import ch.fhnw.bacnetit.transportbinding.ws.ConnectionFactory;
+import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
+import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.WSConnectionClientFactory;
@@ -99,8 +99,8 @@ public class TestLocalSpecService {
     final BACnetEID devLocal21 = new BACnetEID(2001);
     final BACnetEID devLocal22 = new BACnetEID(2002);
 
-    private BindingInitializer channel1;
-    private BindingInitializer channel2;
+    private TransportBindingInitializer channel1;
+    private TransportBindingInitializer channel2;
     private DiscoveryConfig ds;
 
     static volatile T_UnitDataIndication indicationTodevLocal11 = null;
@@ -142,7 +142,7 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal1NoTls));
 
         // Run the channel
-        channel1 = new BindingInitializer();
+        channel1 = new TransportBindingInitializer();
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control
@@ -273,7 +273,7 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal2NoTls));
 
         // Run the channel
-        channel2 = new BindingInitializer();
+        channel2 = new TransportBindingInitializer();
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control

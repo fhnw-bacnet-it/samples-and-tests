@@ -4,8 +4,12 @@
 
 import java.net.URI;import java.net.URISyntaxException;import java.util.HashMap;import java.util.LinkedList;import java.util.List;import java.util.Map;
 
-import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
-import ch.fhnw.bacnetit.ase.application.transaction.api.ApplicationService;import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelConfiguration;import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelFactory;import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;import ch.fhnw.bacnetit.ase.encoding.api.TPDU;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryBinding;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelFactory;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;import ch.fhnw.bacnetit.ase.encoding.api.TPDU;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryBinding;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
 import
  ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;import
  ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetPropertyIdentifier;import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ASDU;import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ConfirmedRequest;import
@@ -15,8 +19,8 @@ import
  ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.CharacterString;import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;import
  ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.AddListElementRequest;import
  ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyRequest;
-import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
-import ch.fhnw.bacnetit.transportbinding.ws.ConnectionFactory;
+import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
+import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
 import
  ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;import
  ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;import io.netty.channel.ChannelHandlerContext;
@@ -46,7 +50,7 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(device1inStack1Uri.getPort(),
                         keystoreConfig, truststoreConfig));
 
-        final ch.fhnw.bacnetit.ase.application.transaction.api.ASEServices channel = ChannelFactory
+        final ch.fhnw.bacnetit.ase.application.service.api.ASEServices channel = ChannelFactory
                 .getInstance();
         final ChannelConfiguration channelConfiguration1 = channel;
         final ApplicationService applicationService1 = channel;
@@ -152,7 +156,7 @@ public class HandsOn4 {
                 new WSSConnectionServerFactory(port2, keystoreConfig,
                         truststoreConfig));
 
-        final ch.fhnw.bacnetit.ase.application.transaction.api.ASEServices channel2 = ChannelFactory
+        final ch.fhnw.bacnetit.ase.application.service.api.ASEServices channel2 = ChannelFactory
                 .getInstance();
         final ChannelConfiguration channelConfiguration2 = channel2;
         final ApplicationService applicationService2 = channel2;

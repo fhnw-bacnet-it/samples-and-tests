@@ -29,10 +29,10 @@ import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
-import ch.fhnw.bacnetit.ase.network.transport.util.ByteBufLogger;
-import ch.fhnw.bacnetit.ase.network.transport.util.MessageLogger;
-import ch.fhnw.bacnetit.ase.network.transport.util.PipelineLogger;
-import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
+import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
+import ch.fhnw.bacnetit.transportbinding.util.ByteBufLogger;
+import ch.fhnw.bacnetit.transportbinding.util.MessageLogger;
+import ch.fhnw.bacnetit.transportbinding.util.PipelineLogger;
 import ch.fhnw.bacnetit.transportbinding.ws.ControlMessageHandler;
 import ch.fhnw.bacnetit.transportbinding.ws.WSBinaryFrameHandler;
 import ch.fhnw.bacnetit.transportbinding.ws.WSEncoder;
@@ -68,7 +68,7 @@ public class WebSocketEncoderTest {
                 new PipelineLogger(), new WebSocket13FrameEncoder(false),
                 new WebSocket13FrameDecoder(false, false, 1024),
                 new ControlMessageHandler(), new WSBinaryFrameHandler(),
-                new WSEncoder(), new MessageLogger(), new BindingInitializer());
+                new WSEncoder(), new MessageLogger(), new TransportBindingInitializer());
         final TPDU tpdu = new TPDU(new BACnetEID(1001), new BACnetEID(1002),
                 new _ByteQueue().popAll());
         tpdu.setInvokeId(new UnsignedInteger8(1));

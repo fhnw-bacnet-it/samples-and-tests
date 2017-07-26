@@ -4,17 +4,18 @@ package demoapp;
 // Import Java components
 import java.net.URI;
 
-// Import packages from the BACnet/IT opensource projects
-// By convention just classes within an api package should be used
-import ch.fhnw.bacnetit.ase.application.api.BACnetEntityListener;
-import ch.fhnw.bacnetit.ase.application.service.ASEService;
+import ch.fhnw.bacnetit.ase.application.service.api.ASEServices;
+import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelFactory;
 import ch.fhnw.bacnetit.ase.application.transaction.api.*;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
-import ch.fhnw.bacnetit.ase.network.transport.api.*;
-import ch.fhnw.bacnetit.transportbinding.ws.BindingConfiguration;
-import ch.fhnw.bacnetit.transportbinding.ws.BindingInitializer;
-import ch.fhnw.bacnetit.transportbinding.ws.ConnectionFactory;
+import ch.fhnw.bacnetit.ase.transportbinding.service.api.ASEService;
+import ch.fhnw.bacnetit.transportbinding.api.BindingConfiguration;
+import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
+import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.*;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.api.*;
 
@@ -64,7 +65,7 @@ public class Configurator {
         connectionFactory1.addConnectionServer("ws",
                 new WSConnectionServerFactory(wsServerPort1));
         
-        BindingConfiguration bindingConfiguration = new BindingInitializer();
+        BindingConfiguration bindingConfiguration = new TransportBindingInitializer();
         ((ChannelConfiguration)channel1).addBinding((ASEService)bindingConfiguration);
         bindingConfiguration.initializeAndStart(connectionFactory1);
    
@@ -107,7 +108,7 @@ public class Configurator {
         connectionFactory2.addConnectionServer("ws",
                 new WSConnectionServerFactory(wsServerPort2));
         
-        BindingConfiguration bindingConfiguration2 = new BindingInitializer();
+        BindingConfiguration bindingConfiguration2 = new TransportBindingInitializer();
         ((ChannelConfiguration)channel2).addBinding((ASEService)bindingConfiguration2);
         bindingConfiguration2.initializeAndStart(connectionFactory2);
  
@@ -153,6 +154,30 @@ public class Configurator {
             e.printStackTrace();
             System.err.print(e);
         }
+        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
+        
+        try {
+            // Represent a WhoIsRequest as byte array
+            byte[] whoIsRequest = new byte[]{(byte)0x1e,(byte)0x8e,(byte)0x8f,(byte)0x1f};
+            
+            System.out.println("Application2 send a WhoIsRequest to Application1");
+            application2.sendBACnetMessage(new URI("ws://localhost:"+wsServerPort1), new BACnetEID(2001), new BACnetEID(1001), 
+                    whoIsRequest);
+            application1.sendReadPropertyRequestUsingBACnet4j(
+                    new URI("ws://localhost:"+wsServerPort2), new BACnetEID(1001),
+                    new BACnetEID(2001));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.print(e);
+        }
+        
 
         // Wait until close
         try{
