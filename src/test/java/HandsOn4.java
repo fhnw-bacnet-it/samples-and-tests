@@ -1,29 +1,50 @@
 
-/********************************************************************************============================================================================*GNU General Public License*============================================================================**Copyright(C)2017 University of Applied Sciences and Arts,*Northwestern Switzerland FHNW,*Institute of Mobile and Distributed Systems.*All rights reserved.**This program is free software:you can redistribute it and/or modify*it under the terms of the GNU General Public License as published by*the Free Software Foundation,either version 3 of the License,or*(at your option)any later version.**This program is distributed in the hope that it will be useful,*but WITHOUT ANY WARRANTY;without even the implied warranty of*MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the*GNU General Public License for more details.*You should have received a copy of the GNU General Public License*along with this program.If not,see http://www.gnu.orglicenses.
+/********************************************************************************
+ * ============================================================================
+ * *GNU General Public License*============================================================================
+ * **Copyright(C)2017 University of Applied Sciences and Arts,*Northwestern Switzerland FHNW,*Institute of Mobile and Distributed Systems.*All rights reserved.**This program is free software:you can redistribute it and/or modify*it under the terms of the GNU General Public License as published by*the Free Software Foundation,either version 3 of the License,or*(at your option)any later version.**This program is distributed in the hope that it will be useful,*but WITHOUT ANY WARRANTY;without even the implied warranty of*MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the*GNU General Public License for more details.*You should have received a copy of the GNU General Public License*along with this program.If not,see http://www.gnu.orglicenses.
 *******************************************************************************/
 
-import java.net.URI;import java.net.URISyntaxException;import java.util.HashMap;import java.util.LinkedList;import java.util.List;import java.util.Map;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
+import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
+import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
 import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
 import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
 import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
 import ch.fhnw.bacnetit.ase.application.service.api.ChannelFactory;
-import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;import ch.fhnw.bacnetit.ase.encoding.api.TPDU;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryBinding;import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
-import
- ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;import
- ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetPropertyIdentifier;import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ASDU;import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ConfirmedRequest;import
- ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.IncomingRequestParser;import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.SimpleACK;import
- ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.SequenceOf;import
- ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.ServicesSupported;import
- ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.CharacterString;import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;import
- ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.AddListElementRequest;import
- ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyRequest;
+import ch.fhnw.bacnetit.ase.application.service.api.TransportBindingService;
+import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
+import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
+import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
+import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryBinding;
+import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;
+import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetPropertyIdentifier;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ASDU;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.ConfirmedRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.IncomingRequestParser;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.asdu.SimpleACK;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.SequenceOf;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.constructed.ServicesSupported;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.type.primitive.CharacterString;
+import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.AddListElementRequest;
+import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyRequest;
 import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
 import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
-import
- ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;import
- ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;import io.netty.channel.ChannelHandlerContext;
+import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
+import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;
+import io.netty.channel.ChannelHandlerContext;
 
 public class HandsOn4 {
 
@@ -103,7 +124,7 @@ public class HandsOn4 {
                                         bq.popAll());
                                 final T_UnitDataRequest simpleAckRequest = new T_UnitDataRequest(
                                         device1inStack2Uri, simpleAckTpdu, 0,
-                                        false, null);
+                                        null);
                                 applicationService1.doRequest(simpleAckRequest);
 
                             }
@@ -143,7 +164,7 @@ public class HandsOn4 {
         };
         channelConfiguration1.setEntityListener(bacNetEntityHandler);
 
-        channelConfiguration1.initializeAndStart(connectionFactory1);
+
 
         final ConnectionFactory connectionFactory2 = new ConnectionFactory();
 
@@ -213,7 +234,7 @@ public class HandsOn4 {
 
         };
         channelConfiguration2.setEntityListener(bacNetEntityHandler2);
-        channelConfiguration2.initializeAndStart(connectionFactory2);
+      
 
         // Implement a dummy Directory Binding using the DirectoryBinding
         // Interface
@@ -270,7 +291,8 @@ public class HandsOn4 {
             // Register the device from application 1 as BDS.
             // BDS registers itself directly using Directory Service.
             ds.register(
-                    channelConfiguration1.getChannelListeners().get(0).getEID(),
+                    
+                    new BACnetEID(((TransportBindingService)channelConfiguration1).getChannelListeners().get(0)),
                     device1inStack1Uri, true, false);
 
             // After registration find BDS EID using the Directoy Service
@@ -293,7 +315,7 @@ public class HandsOn4 {
             final TPDU remoteRegistrationTPDU = new TPDU(device1inStack2,
                     device1inStack1, byteQueue.popAll());
             final T_UnitDataRequest remoteRegistrationRequest = new T_UnitDataRequest(
-                    bdsURI, remoteRegistrationTPDU, 0, true, null);
+                    bdsURI, remoteRegistrationTPDU, 0, null);
             applicationService2.doRequest(remoteRegistrationRequest);
             // BDS should register device1inStack2 in DNS using the
             // directoryBinding (dummyDirectoryBinding)
@@ -331,7 +353,7 @@ public class HandsOn4 {
         }
 
         final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(
-                dev1stack2UriResolved, tpdu, 1, false, null);
+                dev1stack2UriResolved, tpdu, 1, null);
 
         applicationService1.doRequest(unitDataRequest);
     }

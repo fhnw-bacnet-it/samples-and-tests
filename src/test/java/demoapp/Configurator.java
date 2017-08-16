@@ -3,7 +3,6 @@ package demoapp;
 // Make sure to import the following classes
 // Import Java components
 import java.net.URI;
-
 import ch.fhnw.bacnetit.ase.application.service.api.ASEServices;
 import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
 import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
@@ -66,7 +65,7 @@ public class Configurator {
                 new WSConnectionServerFactory(wsServerPort1));
         
         BindingConfiguration bindingConfiguration = new TransportBindingInitializer();
-        ((ChannelConfiguration)channel1).addBinding((ASEService)bindingConfiguration);
+        ((ChannelConfiguration)channel1).setASEService((ASEService)bindingConfiguration);
         bindingConfiguration.initializeAndStart(connectionFactory1);
    
       
@@ -109,7 +108,7 @@ public class Configurator {
                 new WSConnectionServerFactory(wsServerPort2));
         
         BindingConfiguration bindingConfiguration2 = new TransportBindingInitializer();
-        ((ChannelConfiguration)channel2).addBinding((ASEService)bindingConfiguration2);
+        ((ChannelConfiguration)channel2).setASEService((ASEService)bindingConfiguration2);
         bindingConfiguration2.initializeAndStart(connectionFactory2);
  
         /*

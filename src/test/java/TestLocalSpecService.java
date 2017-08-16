@@ -35,17 +35,17 @@ import ch.fhnw.bacnetit.ase.application.api.NetworkPortObj;
 import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
+import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
 import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
-import ch.fhnw.bacnetit.ase.application.transaction.Transaction;
-import ch.fhnw.bacnetit.ase.application.transaction.TransactionKey;
-import ch.fhnw.bacnetit.ase.application.transaction.TransactionManagerListener;
-import ch.fhnw.bacnetit.ase.application.transaction.TransactionState;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelFactory;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
 import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataIndication;
 import ch.fhnw.bacnetit.ase.encoding.api.T_UnitDataRequest;
 import ch.fhnw.bacnetit.ase.network.directory.api.DirectoryService;
+import ch.fhnw.bacnetit.ase.transportbinding.service.api.ASEService;
 import ch.fhnw.bacnetit.directorybinding.dnssd.api.DNSSD;
 import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectIdentifier;
 import ch.fhnw.bacnetit.samplesandtests.api.deviceobjects.BACnetObjectType;
@@ -72,6 +72,7 @@ import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyReques
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVPropertyRequest;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.SubscribeCOVRequest;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.WritePropertyRequest;
+import ch.fhnw.bacnetit.transportbinding.api.BindingConfiguration;
 import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
 import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.api.WSConnectionServerFactory;
@@ -99,8 +100,10 @@ public class TestLocalSpecService {
     final BACnetEID devLocal21 = new BACnetEID(2001);
     final BACnetEID devLocal22 = new BACnetEID(2002);
 
-    private TransportBindingInitializer channel1;
-    private TransportBindingInitializer channel2;
+    private ApplicationService appService1;
+    private ApplicationService appService2;
+    private BindingConfiguration bindingConfiguration1;
+    private BindingConfiguration bindingConfiguration2;
     private DiscoveryConfig ds;
 
     static volatile T_UnitDataIndication indicationTodevLocal11 = null;
@@ -110,10 +113,10 @@ public class TestLocalSpecService {
 
     // Define key- and truststore
     final KeystoreConfig keystoreConfig = new KeystoreConfig(
-            "../dummyKeystores/keyStoreDev1.jks", "123456",
+            "dummyKeystores/keyStoreDev1.jks", "123456",
             "operationaldevcert");
     final TruststoreConfig truststoreConfig = new TruststoreConfig(
-            "../dummyKeystores/trustStore.jks", "123456", "installer.ch");
+            "dummyKeystores/trustStore.jks", "123456", "installer.ch");
 
     private void setupHost1() throws URISyntaxException {
 
@@ -142,7 +145,10 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal1NoTls));
 
         // Run the channel
-        channel1 = new TransportBindingInitializer();
+        appService1 = ChannelFactory.getInstance();
+        bindingConfiguration1 = new TransportBindingInitializer();
+        ((ChannelConfiguration)appService1).setASEService((ASEService)bindingConfiguration1);;
+        bindingConfiguration1.initializeAndStart(connectionFactory);
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control
@@ -172,10 +178,9 @@ public class TestLocalSpecService {
 
         };
         // Register a BACnetEntityListener in the Channel.
-        channel1.setEntityListener(bacNetEntityHandler);
+        ((ChannelConfiguration)appService1).setEntityListener(bacNetEntityHandler);
 
-        // Init and start the channel
-        channel1.initializeAndStart(connectionFactory);
+
 
         /*
          * Update the monitor about host 1
@@ -186,34 +191,12 @@ public class TestLocalSpecService {
                 keystoreConfig);
 
         /*
-         * Register a transaction manager listener to update the monitor about
-         * transactions
-         */
-        channel1.getTransactionManager()
-                .addListener(new TransactionManagerListener() {
-
-                    @Override
-                    public void onAdd(final TransactionKey key,
-                            final Transaction t) throws Exception {
-
-                    }
-
-                    @Override
-                    public void onChange(final TransactionKey key,
-                            final Transaction t,
-                            final TransactionState previousState)
-                            throws Exception {
-
-                    }
-                });
-
-        /*
          * Channel Listener is the interface between the stack and the
          * application. A simple BACnet Device gets simulated by an anonymous
          * class implementing ChannelListener. Add two devices to each host and
          * notify the monitor.
          */
-        channel1.registerChannelListener(new ChannelListener(devLocal11) {
+        ((ChannelConfiguration)appService1).registerChannelListener(new ChannelListener(devLocal11) {
 
             @Override
             public void onIndication(
@@ -229,7 +212,7 @@ public class TestLocalSpecService {
 
         });
 
-        channel1.registerChannelListener(new ChannelListener(devLocal12) {
+        ((ChannelConfiguration)appService1).registerChannelListener(new ChannelListener(devLocal12) {
 
             @Override
             public void onIndication(
@@ -273,7 +256,10 @@ public class TestLocalSpecService {
                 new WSConnectionServerFactory(portLocal2NoTls));
 
         // Run the channel
-        channel2 = new TransportBindingInitializer();
+        appService2 = ChannelFactory.getInstance();
+        bindingConfiguration2 = new TransportBindingInitializer();
+        ((ChannelConfiguration)appService2).setASEService((ASEService)bindingConfiguration2);;
+        bindingConfiguration2.initializeAndStart(connectionFactory2);
 
         /*
          * Implement and set BACnetEntityHandler (to handle received control
@@ -305,44 +291,22 @@ public class TestLocalSpecService {
 
         };
         // Register a BACnetEntityListener in the Channel.
-        channel2.setEntityListener(bacNetEntityHandler2);
+        ((ChannelConfiguration)appService2).setEntityListener(bacNetEntityHandler2);
 
-        // Init and start the channel
-        channel2.initializeAndStart(connectionFactory2);
+
 
         // Create a Network Port Object for host 2
         final NetworkPortObj npo2 = new NetworkPortObj("wss", 9001,
                 keystoreConfig);
 
-        /*
-         * Register a transaction manager listener to update the monitor about
-         * transactions
-         */
-        channel2.getTransactionManager()
-                .addListener(new TransactionManagerListener() {
-
-                    @Override
-                    public void onAdd(final TransactionKey key,
-                            final Transaction t) throws Exception {
-
-                    }
-
-                    @Override
-                    public void onChange(final TransactionKey key,
-                            final Transaction t,
-                            final TransactionState previousState)
-                            throws Exception {
-
-                    }
-                });
-
+       
         /*
          * Channel Listener is the interface between the stack and the
          * application. A simple BACnet Device gets simulated by an anonymous
          * class implementing ChannelListener. Add two devices to each host and
          * notify the monitor.
          */
-        channel2.registerChannelListener(new ChannelListener(devLocal21) {
+        ((ChannelConfiguration)appService2).registerChannelListener(new ChannelListener(devLocal21) {
 
             @Override
             public void onIndication(
@@ -358,7 +322,7 @@ public class TestLocalSpecService {
 
         });
 
-        channel2.registerChannelListener(new ChannelListener(devLocal22) {
+        ((ChannelConfiguration)appService2).registerChannelListener(new ChannelListener(devLocal22) {
 
             @Override
             public void onIndication(
@@ -401,10 +365,15 @@ public class TestLocalSpecService {
 
     @After
     public void teardown() {
-        channel1.shutdown();
-        channel2.shutdown();
-        channel1 = null;
-        channel2 = null;
+        
+        //channel1.shutdown();
+        //channel2.shutdown();
+        //channel1 = null;
+        //channel2 = null;
+        bindingConfiguration1.shutdown();
+        bindingConfiguration2.shutdown();
+        appService1 = null;
+        appService2 = null;
         ds = null;
         indicationTodevLocal11 = null;
         indicationTodevLocal12 = null;
@@ -423,9 +392,9 @@ public class TestLocalSpecService {
 
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
         while (indicationTodevLocal21 == null) {
         }
 
@@ -447,9 +416,9 @@ public class TestLocalSpecService {
         scpr.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
         while (indicationTodevLocal21 == null) {
         }
 
@@ -468,9 +437,9 @@ public class TestLocalSpecService {
         lsor.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
 
         while (indicationTodevLocal21 == null) {
         }
@@ -498,9 +467,9 @@ public class TestLocalSpecService {
         seq.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
 
         while (indicationTodevLocal21 == null) {
         }
@@ -526,9 +495,9 @@ public class TestLocalSpecService {
         cenr.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
         while (indicationTodevLocal21 == null) {
         }
         assertEquals(Arrays.toString(before),
@@ -547,9 +516,9 @@ public class TestLocalSpecService {
         aar.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal21, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal2NoTls, tpdu, 1, true, null);
+                hostLocal2NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
-        channel1.doRequest(dDataRequest);
+        appService1.doRequest(dDataRequest);
         while (indicationTodevLocal21 == null) {
         }
         assertEquals(Arrays.toString(before),
@@ -565,10 +534,10 @@ public class TestLocalSpecService {
         asdu.write(b);
         final TPDU tpdu = new TPDU(devLocal11, devLocal12, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal1NoTls, tpdu, 1, true, null);
+                hostLocal1NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
 
-        channel2.doRequest(dDataRequest);
+        appService2.doRequest(dDataRequest);
         while (indicationTodevLocal12 == null) {
         }
         assertEquals(Arrays.toString(before),
@@ -585,10 +554,10 @@ public class TestLocalSpecService {
         asdu.write(b);
         final TPDU tpdu = new TPDU(devLocal21, devLocal11, b.popAll());
         final T_UnitDataRequest dDataRequest = new T_UnitDataRequest(
-                hostLocal1NoTls, tpdu, 1, true, null);
+                hostLocal1NoTls, tpdu, 1, null);
         final byte[] before = dDataRequest.getData().getBody();
 
-        channel2.doRequest(dDataRequest);
+        appService2.doRequest(dDataRequest);
         while (indicationTodevLocal11 == null) {
         }
         assertEquals(Arrays.toString(before),
