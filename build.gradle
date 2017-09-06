@@ -43,7 +43,7 @@ dependencies {
 build.dependsOn jacocoTestReport
 
 test {
-    ignoreFailures = true
+    ignoreFailures = false
     reports {
         junitXml.enabled = true
         html.enabled = true

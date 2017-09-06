@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * ============================================================================
  * GNU General Public License
@@ -21,25 +22,11 @@
  * along with this program. If not, see http://www.gnu.orglicenses.
  *******************************************************************************/
 
-import java.io.IOException;
-
 import org.junit.Test;
 
-import ch.fhnw.bacnetit.ase.encoding.UnsignedInteger8;
 import ch.fhnw.bacnetit.ase.encoding._ByteQueue;
-import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
 import ch.fhnw.bacnetit.ase.encoding.api.TPDU;
-import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
-import ch.fhnw.bacnetit.transportbinding.util.ByteBufLogger;
-import ch.fhnw.bacnetit.transportbinding.util.MessageLogger;
-import ch.fhnw.bacnetit.transportbinding.util.PipelineLogger;
-import ch.fhnw.bacnetit.transportbinding.ws.ControlMessageHandler;
-import ch.fhnw.bacnetit.transportbinding.ws.WSBinaryFrameHandler;
-import ch.fhnw.bacnetit.transportbinding.ws.WSEncoder;
 import ch.fhnw.bacnetit.transportbinding.ws.WSPayloadControl;
-import io.netty.channel.embedded.EmbeddedChannel;
-import io.netty.handler.codec.http.websocketx.WebSocket13FrameDecoder;
-import io.netty.handler.codec.http.websocketx.WebSocket13FrameEncoder;
 
 public class WebSocketEncoderTest {
 
@@ -61,25 +48,6 @@ public class WebSocketEncoderTest {
      * } catch (final BACnetException e) { // TODO Auto-generated catch block
      * e.printStackTrace(); } }
      */
-
-    @Test
-    public void testLogging() throws IOException {
-        final EmbeddedChannel channel = new EmbeddedChannel(new ByteBufLogger(),
-                new PipelineLogger(), new WebSocket13FrameEncoder(false),
-                new WebSocket13FrameDecoder(false, false, 1024),
-                new ControlMessageHandler(), new WSBinaryFrameHandler(),
-                new WSEncoder(), new MessageLogger(), new TransportBindingInitializer());
-        final TPDU tpdu = new TPDU(new BACnetEID(1001), new BACnetEID(1002),
-                new _ByteQueue().popAll());
-        tpdu.setInvokeId(new UnsignedInteger8(1));
-        channel.writeOutbound(tpdu);
-        final Object temp = channel.readOutbound();
-        System.out.println(temp);
-        channel.writeInbound(temp);
-        final Object back = channel.readInbound();
-        System.out.println(back);
-        channel.close();
-    }
 
     // TODO remove test
     @Test

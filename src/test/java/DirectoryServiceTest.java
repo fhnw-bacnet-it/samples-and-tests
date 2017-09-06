@@ -23,13 +23,10 @@
  *******************************************************************************/
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
-import java.util.LinkedList;
 
 import org.junit.Test;
 
@@ -66,22 +63,6 @@ public class DirectoryServiceTest {
     }
 
     @Test
-    public void testDnsResolve() {
-        try {
-            final BACnetEID dummyEid = new BACnetEID(2001);
-            final URI dummyUrl = new URI(DUMMY_DEVICE_URL);
-            final DNSSD service = new DNSSD(discoveryConfig);
-            service.register(dummyEid, dummyUrl, false);
-            Thread.sleep(100);
-
-            assertEquals(dummyUrl, service.resolve(dummyEid));
-        } catch (URISyntaxException | UnknownHostException
-                | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     public void testDnsDelete() {
         try {
             final BACnetEID dummyEid = new BACnetEID(2001);
@@ -92,46 +73,6 @@ public class DirectoryServiceTest {
 
             assertNull(service.resolve(dummyEid));
         } catch (URISyntaxException | UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testCacheFile() {
-        try {
-            File cacheFile = new File(DirectoryService.CACHE_FILE_NAME);
-            if (cacheFile.exists()) { // ensure no cache file is present
-                if (!cacheFile.delete()) {
-                    throw new Exception("File couldn't be deleted");
-                }
-            }
-
-            final BACnetEID eid1 = new BACnetEID(2001);
-            final BACnetEID eid2 = new BACnetEID(2002);
-            final BACnetEID eid3 = new BACnetEID(2003);
-            final URI dummyUrl = new URI(DUMMY_DEVICE_URL);
-
-            DirectoryService service = DirectoryService.getInstance();
-            service.register(eid1, dummyUrl, false, false);
-            service.register(eid2, dummyUrl, false, false);
-            service.register(eid3, dummyUrl, false, false);
-
-            final LinkedList<BACnetEID> eids = new LinkedList<>();
-            eids.add(eid1);
-            eids.add(eid2);
-            eids.add(eid3);
-            service.prepareForShutdown(eids); // force file write
-            service = null;
-
-            cacheFile = new File(DirectoryService.CACHE_FILE_NAME);
-            assertTrue(cacheFile.exists());
-
-            service = DirectoryService.getInstance(); // file is read, no DNS is
-                                                      // added
-            assertEquals(dummyUrl, service.resolve(eid1));
-            assertEquals(dummyUrl, service.resolve(eid2));
-            assertEquals(dummyUrl, service.resolve(eid3));
-        } catch (final Exception e) {
             e.printStackTrace();
         }
     }

@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  * ============================================================================
  * GNU General Public License
@@ -21,8 +22,6 @@
  * along with this program. If not, see http://www.gnu.orglicenses.
  *******************************************************************************/
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -63,27 +62,6 @@ public class WebSocketBinaryFrameHandlerTest {
 
         assertTrue("Output message must be a TBPDU",
                 channel.readInbound() instanceof TPDU);
-    }
-
-    @Test
-    public void testInvalidDecoding() {
-        buffer.writeBytes(INVALID_SIMPLE_ACK);
-
-        channel = new EmbeddedChannel(new WSBinaryFrameHandler());
-        channel.writeInbound(new BinaryWebSocketFrame(buffer));
-
-        assertNull(
-                "Nothing should be forwarded when a BACnet message could not be decoded.",
-                channel.readInbound());
-        final Object response = channel.readOutbound();
-        assertNotNull("Client must get a response on invalid message.",
-                response);
-        // assertTrue("Valid error message must be sent to the client.",
-        // response instanceof BACnetTransactionManagerException);
-        // TODO decide on reject reason
-        // assertTrue("Error message must contain a valid reject reason.",
-        // ((BACnetTransactionManagerException)
-        // response).getMessage().equals("asdf"));
     }
 
 }

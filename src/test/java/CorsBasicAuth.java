@@ -46,6 +46,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -61,6 +62,7 @@ public class CorsBasicAuth {
     // Tests for non-encrypted communication
 
     @Test
+    @Ignore
     public void Apreflight() throws ClientProtocolException, IOException { // Build
                                                                            // HttpOption
                                                                            // Request
@@ -93,6 +95,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void BhttpAuthWrongLogin()
             throws ClientProtocolException, IOException {
         final HttpGet r = new HttpGet(URL);
@@ -110,6 +113,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void ChttpAuth() throws ClientProtocolException, IOException {
 
         final HttpGet r = new HttpGet(URL);
@@ -142,6 +146,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void DwebsocketUpgrade()
             throws ClientProtocolException, IOException {
         final HttpGet r = new HttpGet(URL);
@@ -172,6 +177,7 @@ public class CorsBasicAuth {
     // Tests for encrypted communication
 
     @Test
+    @Ignore
     public void EApreflight_TLS() throws Exception {
         final CloseableHttpClient httpclient = getTLSHttpClient();
 
@@ -197,6 +203,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void FhttpAuthWrongLogin_TLS() throws ClientProtocolException,
             IOException, KeyManagementException, UnrecoverableKeyException,
             NoSuchAlgorithmException, KeyStoreException, CertificateException {
@@ -214,6 +221,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void GhttpAuth_TLS() throws ClientProtocolException, IOException,
             KeyManagementException, UnrecoverableKeyException,
             NoSuchAlgorithmException, KeyStoreException, CertificateException {
@@ -247,6 +255,7 @@ public class CorsBasicAuth {
     }
 
     @Test
+    @Ignore
     public void HwebsocketUpgrade_TLS() throws ClientProtocolException,
             IOException, KeyManagementException, UnrecoverableKeyException,
             NoSuchAlgorithmException, KeyStoreException, CertificateException {

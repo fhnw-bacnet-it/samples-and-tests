@@ -41,10 +41,8 @@ import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.AddListElementRequest;
 import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyRequest;
 import ch.fhnw.bacnetit.transportbinding.api.ConnectionFactory;
-import ch.fhnw.bacnetit.transportbinding.api.TransportBindingInitializer;
 import ch.fhnw.bacnetit.transportbinding.ws.incoming.tls.api.WSSConnectionServerFactory;
 import ch.fhnw.bacnetit.transportbinding.ws.outgoing.tls.api.WSSConnectionClientFactory;
-import io.netty.channel.ChannelHandlerContext;
 
 public class HandsOn4 {
 
@@ -164,8 +162,6 @@ public class HandsOn4 {
         };
         channelConfiguration1.setEntityListener(bacNetEntityHandler);
 
-
-
         final ConnectionFactory connectionFactory2 = new ConnectionFactory();
 
         final int port2 = 9090;
@@ -234,7 +230,6 @@ public class HandsOn4 {
 
         };
         channelConfiguration2.setEntityListener(bacNetEntityHandler2);
-      
 
         // Implement a dummy Directory Binding using the DirectoryBinding
         // Interface
@@ -291,8 +286,10 @@ public class HandsOn4 {
             // Register the device from application 1 as BDS.
             // BDS registers itself directly using Directory Service.
             ds.register(
-                    
-                    new BACnetEID(((TransportBindingService)channelConfiguration1).getChannelListeners().get(0)),
+
+                    new BACnetEID(
+                            ((TransportBindingService) channelConfiguration1)
+                                    .getChannelListeners().get(0)),
                     device1inStack1Uri, true, false);
 
             // After registration find BDS EID using the Directoy Service

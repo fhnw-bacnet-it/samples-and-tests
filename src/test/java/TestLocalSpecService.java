@@ -36,8 +36,8 @@ import ch.fhnw.bacnetit.ase.application.configuration.api.DiscoveryConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.KeystoreConfig;
 import ch.fhnw.bacnetit.ase.application.configuration.api.TruststoreConfig;
 import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
-import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
 import ch.fhnw.bacnetit.ase.application.service.api.BACnetEntityListener;
+import ch.fhnw.bacnetit.ase.application.service.api.ChannelConfiguration;
 import ch.fhnw.bacnetit.ase.application.service.api.ChannelFactory;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
@@ -113,8 +113,7 @@ public class TestLocalSpecService {
 
     // Define key- and truststore
     final KeystoreConfig keystoreConfig = new KeystoreConfig(
-            "dummyKeystores/keyStoreDev1.jks", "123456",
-            "operationaldevcert");
+            "dummyKeystores/keyStoreDev1.jks", "123456", "operationaldevcert");
     final TruststoreConfig truststoreConfig = new TruststoreConfig(
             "dummyKeystores/trustStore.jks", "123456", "installer.ch");
 
@@ -147,7 +146,9 @@ public class TestLocalSpecService {
         // Run the channel
         appService1 = ChannelFactory.getInstance();
         bindingConfiguration1 = new TransportBindingInitializer();
-        ((ChannelConfiguration)appService1).setASEService((ASEService)bindingConfiguration1);;
+        ((ChannelConfiguration) appService1)
+                .setASEService((ASEService) bindingConfiguration1);
+        ;
         bindingConfiguration1.initializeAndStart(connectionFactory);
 
         /*
@@ -178,9 +179,8 @@ public class TestLocalSpecService {
 
         };
         // Register a BACnetEntityListener in the Channel.
-        ((ChannelConfiguration)appService1).setEntityListener(bacNetEntityHandler);
-
-
+        ((ChannelConfiguration) appService1)
+                .setEntityListener(bacNetEntityHandler);
 
         /*
          * Update the monitor about host 1
@@ -196,37 +196,39 @@ public class TestLocalSpecService {
          * class implementing ChannelListener. Add two devices to each host and
          * notify the monitor.
          */
-        ((ChannelConfiguration)appService1).registerChannelListener(new ChannelListener(devLocal11) {
+        ((ChannelConfiguration) appService1)
+                .registerChannelListener(new ChannelListener(devLocal11) {
 
-            @Override
-            public void onIndication(
-                    final T_UnitDataIndication tUnitDataIndication,
-                    final Object ctx) {
-                indicationTodevLocal11 = tUnitDataIndication;
-            }
+                    @Override
+                    public void onIndication(
+                            final T_UnitDataIndication tUnitDataIndication,
+                            final Object ctx) {
+                        indicationTodevLocal11 = tUnitDataIndication;
+                    }
 
-            @Override
-            public void onError(final String cause) {
-                System.err.println(cause);
-            }
+                    @Override
+                    public void onError(final String cause) {
+                        System.err.println(cause);
+                    }
 
-        });
+                });
 
-        ((ChannelConfiguration)appService1).registerChannelListener(new ChannelListener(devLocal12) {
+        ((ChannelConfiguration) appService1)
+                .registerChannelListener(new ChannelListener(devLocal12) {
 
-            @Override
-            public void onIndication(
-                    final T_UnitDataIndication tUnitDataIndication,
-                    final Object ctx) {
-                indicationTodevLocal12 = tUnitDataIndication;
-            }
+                    @Override
+                    public void onIndication(
+                            final T_UnitDataIndication tUnitDataIndication,
+                            final Object ctx) {
+                        indicationTodevLocal12 = tUnitDataIndication;
+                    }
 
-            @Override
-            public void onError(final String cause) {
-                System.err.println(cause);
-            }
+                    @Override
+                    public void onError(final String cause) {
+                        System.err.println(cause);
+                    }
 
-        });
+                });
 
     }
 
@@ -258,7 +260,9 @@ public class TestLocalSpecService {
         // Run the channel
         appService2 = ChannelFactory.getInstance();
         bindingConfiguration2 = new TransportBindingInitializer();
-        ((ChannelConfiguration)appService2).setASEService((ASEService)bindingConfiguration2);;
+        ((ChannelConfiguration) appService2)
+                .setASEService((ASEService) bindingConfiguration2);
+        ;
         bindingConfiguration2.initializeAndStart(connectionFactory2);
 
         /*
@@ -291,53 +295,53 @@ public class TestLocalSpecService {
 
         };
         // Register a BACnetEntityListener in the Channel.
-        ((ChannelConfiguration)appService2).setEntityListener(bacNetEntityHandler2);
-
-
+        ((ChannelConfiguration) appService2)
+                .setEntityListener(bacNetEntityHandler2);
 
         // Create a Network Port Object for host 2
         final NetworkPortObj npo2 = new NetworkPortObj("wss", 9001,
                 keystoreConfig);
 
-       
         /*
          * Channel Listener is the interface between the stack and the
          * application. A simple BACnet Device gets simulated by an anonymous
          * class implementing ChannelListener. Add two devices to each host and
          * notify the monitor.
          */
-        ((ChannelConfiguration)appService2).registerChannelListener(new ChannelListener(devLocal21) {
+        ((ChannelConfiguration) appService2)
+                .registerChannelListener(new ChannelListener(devLocal21) {
 
-            @Override
-            public void onIndication(
-                    final T_UnitDataIndication tUnitDataIndication,
-                    final Object ctx) {
-                indicationTodevLocal21 = tUnitDataIndication;
-            }
+                    @Override
+                    public void onIndication(
+                            final T_UnitDataIndication tUnitDataIndication,
+                            final Object ctx) {
+                        indicationTodevLocal21 = tUnitDataIndication;
+                    }
 
-            @Override
-            public void onError(final String cause) {
-                System.err.println(cause);
-            }
+                    @Override
+                    public void onError(final String cause) {
+                        System.err.println(cause);
+                    }
 
-        });
+                });
 
-        ((ChannelConfiguration)appService2).registerChannelListener(new ChannelListener(devLocal22) {
+        ((ChannelConfiguration) appService2)
+                .registerChannelListener(new ChannelListener(devLocal22) {
 
-            @Override
-            public void onIndication(
-                    final T_UnitDataIndication tUnitDataIndication,
-                    final Object ctx) {
+                    @Override
+                    public void onIndication(
+                            final T_UnitDataIndication tUnitDataIndication,
+                            final Object ctx) {
 
-                indicationTodevLocal22 = tUnitDataIndication;
-            }
+                        indicationTodevLocal22 = tUnitDataIndication;
+                    }
 
-            @Override
-            public void onError(final String cause) {
-                System.err.println(cause);
-            }
+                    @Override
+                    public void onError(final String cause) {
+                        System.err.println(cause);
+                    }
 
-        });
+                });
 
     }
 
@@ -365,11 +369,11 @@ public class TestLocalSpecService {
 
     @After
     public void teardown() {
-        
-        //channel1.shutdown();
-        //channel2.shutdown();
-        //channel1 = null;
-        //channel2 = null;
+
+        // channel1.shutdown();
+        // channel2.shutdown();
+        // channel1 = null;
+        // channel2 = null;
         bindingConfiguration1.shutdown();
         bindingConfiguration2.shutdown();
         appService1 = null;

@@ -24,72 +24,74 @@ import ch.fhnw.bacnetit.samplesandtests.api.service.confirmed.ReadPropertyReques
 
 /**
  * AbstractApplication provides base functionality
+ *
  * @author IMVS, FHNW
  *
  */
 public abstract class AbstractApplication {
-    
+
     // applicationService is the application's view of the stack.
     // applicationService is used to send BACnet messages to other devices.
     // The configurator class will pass the applicationService, as shown later
     final private ApplicationService applicationService;
-    
+
     // devices is a list of simulated BACnet devices.
     final public List<ChannelListener> devices = new LinkedList<ChannelListener>();
-    
-    
-    public AbstractApplication(ApplicationService applicationService) {
+
+    public AbstractApplication(final ApplicationService applicationService) {
         this.applicationService = applicationService;
     }
-    
+
     /**
      * sendReadPropertyRequestUsingBACnet4j() sends a ReadRequestProperty to a
      * given destination. To represent such a ReadPropertyRequest BACnet4J is
      * used. Note that the TPDU constructor demands a byte array that represents
      * the BACnet service. Feel free to provide the byte array without the usage
      * of BACnet4J by using the sendBACnetMessage(byte[]) method.
-     * 
+     *
      * @throws URISyntaxException
      */
-    public void sendReadPropertyRequestUsingBACnet4j(URI destination, BACnetEID from, BACnetEID to)
+    public void sendReadPropertyRequestUsingBACnet4j(final URI destination,
+            final BACnetEID from, final BACnetEID to)
             throws URISyntaxException {
         final ReadPropertyRequest readRequest = new ReadPropertyRequest(
                 new BACnetObjectIdentifier(BACnetObjectType.analogValue, 1),
                 BACnetPropertyIdentifier.presentValue);
         final ByteQueue byteQueue = new ByteQueue();
         readRequest.write(byteQueue);
-        final TPDU tpdu = new TPDU(from, to,
-                byteQueue.popAll());
+        final TPDU tpdu = new TPDU(from, to, byteQueue.popAll());
 
-        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, null);
+        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(
+                destination, tpdu, 1, null);
 
         applicationService.doRequest(unitDataRequest);
 
     }
-    
-    
+
     /**
-     * sendBACnetMessage() sends a BACnet message represented as byte array to the given destination.
-     * Ensure the byte array represents a valid BACnet message.
+     * sendBACnetMessage() sends a BACnet message represented as byte array to
+     * the given destination. Ensure the byte array represents a valid BACnet
+     * message.
+     *
      * @param bacnetMessage
      * @throws URISyntaxException
      */
-    public void sendBACnetMessage(URI destination, BACnetEID from, BACnetEID to, byte[] confirmedBacnetMessage) throws URISyntaxException {
-      
-        final TPDU tpdu = new TPDU(from, to,
-                confirmedBacnetMessage);
-        
+    public void sendBACnetMessage(final URI destination, final BACnetEID from,
+            final BACnetEID to, final byte[] confirmedBacnetMessage)
+            throws URISyntaxException {
 
-        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(destination, tpdu, 1, null);
+        final TPDU tpdu = new TPDU(from, to, confirmedBacnetMessage);
+
+        final T_UnitDataRequest unitDataRequest = new T_UnitDataRequest(
+                destination, tpdu, 1, null);
 
         applicationService.doRequest(unitDataRequest);
     }
-    
-    
+
     /**
      * getServiceFromBody() is a helper method to interpret received BACnet
      * messages.
-     * 
+     *
      * @param body
      * @return
      */

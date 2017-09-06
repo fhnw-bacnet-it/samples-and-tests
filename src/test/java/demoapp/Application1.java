@@ -4,7 +4,6 @@ package demoapp;
 // Import Java components
 import java.net.URI;
 
-import ch.fhnw.bacnetit.ase.application.service.api.ASEServices;
 import ch.fhnw.bacnetit.ase.application.service.api.ApplicationService;
 import ch.fhnw.bacnetit.ase.application.transaction.api.ChannelListener;
 import ch.fhnw.bacnetit.ase.encoding.api.BACnetEID;
@@ -17,7 +16,7 @@ import ch.fhnw.bacnetit.samplesandtests.api.service.unconfirmed.WhoIsRequest;
 /**
  * Simulating a BACnet/IT application using the ApplicationService interface
  * (component of ASE) to send messages to other devices.
- * 
+ *
  * @author IMVS, FHNW
  *
  */
@@ -25,23 +24,23 @@ public class Application1 extends AbstractApplication {
 
     /**
      * Constructor of class Application1
-     * 
+     *
      * @param applicationService,
      *            the applicationService gets passed from the Configurator.
      */
-    public Application1(ApplicationService applicationService) {
+    public Application1(final ApplicationService applicationService) {
         super(applicationService);
 
         // To simulate a device within the application, a ChannelListener needs
         // to get implemented.
-        ChannelListener bacnetDevice1001 = new ChannelListener(
+        final ChannelListener bacnetDevice1001 = new ChannelListener(
                 new BACnetEID(1001)) {
 
             /**
              * Handles incoming message errors from the ASE.
              */
             @Override
-            public void onError(String arg0) {
+            public void onError(final String arg0) {
                 // TODO Auto-generated method stub
 
             }
@@ -50,11 +49,12 @@ public class Application1 extends AbstractApplication {
              * Handles incoming messages from the ASE.
              */
             @Override
-            public void onIndication(T_UnitDataIndication arg0,
-                    Object context) {
+            public void onIndication(final T_UnitDataIndication arg0,
+                    final Object context) {
                 System.out.println("Application1 got an indication");
                 // Parse the incoming message
-                ASDU incoming = getServiceFromBody(arg0.getData().getBody());
+                final ASDU incoming = getServiceFromBody(
+                        arg0.getData().getBody());
 
                 // Dummy Handling of a ReadPropertyAck
                 if (incoming instanceof ComplexACK) {
@@ -73,17 +73,19 @@ public class Application1 extends AbstractApplication {
                             "Application1 got an indication - WhoIsRequest");
 
                     // Represent an IAmRequest as byte array
-                    byte[] iAmRequest = new byte[] { (byte) 0x1E, (byte) 0x0E,
-                            (byte) 0xC4, (byte) 0x02, (byte) 0x00, (byte) 0x00,
-                            (byte) 0x00, (byte) 0x21, (byte) 0x01, (byte) 0x91,
-                            (byte) 0x00, (byte) 0x21, (byte) 0x01, (byte) 0x0F,
-                            (byte) 0x1F };
+                    final byte[] iAmRequest = new byte[] { (byte) 0x1E,
+                            (byte) 0x0E, (byte) 0xC4, (byte) 0x02, (byte) 0x00,
+                            (byte) 0x00, (byte) 0x00, (byte) 0x21, (byte) 0x01,
+                            (byte) 0x91, (byte) 0x00, (byte) 0x21, (byte) 0x01,
+                            (byte) 0x0F, (byte) 0x1F };
 
                     try {
-                        System.out.println("Application1 sends an IAmRequest to Application2");
+                        System.out.println(
+                                "Application1 sends an IAmRequest to Application2");
                         sendBACnetMessage(new URI("ws://localhost:9090"),
-                                new BACnetEID(1001), new BACnetEID(2001),iAmRequest);
-                    } catch (Exception e) {
+                                new BACnetEID(1001), new BACnetEID(2001),
+                                iAmRequest);
+                    } catch (final Exception e) {
                     }
 
                 }
@@ -93,14 +95,14 @@ public class Application1 extends AbstractApplication {
 
         // To simulate a device within the application, a ChannelListener needs
         // to get implemented.
-        ChannelListener bacnetDevice1002 = new ChannelListener(
+        final ChannelListener bacnetDevice1002 = new ChannelListener(
                 new BACnetEID(1002)) {
 
             /**
              * Handles incoming message errors from the ASE.
              */
             @Override
-            public void onError(String arg0) {
+            public void onError(final String arg0) {
                 // TODO Auto-generated method stub
             }
 
@@ -108,8 +110,8 @@ public class Application1 extends AbstractApplication {
              * Handles incoming messages from the ASE.
              */
             @Override
-            public void onIndication(T_UnitDataIndication arg0,
-                    Object context) {
+            public void onIndication(final T_UnitDataIndication arg0,
+                    final Object context) {
                 // TODO Auto-generated method stub
             }
         };
