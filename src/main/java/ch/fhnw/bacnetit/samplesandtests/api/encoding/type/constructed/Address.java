@@ -77,7 +77,7 @@ public class Address extends BaseType {
     /**
      * Convenience constructor for MS/TP addresses remote to this network.
      *
-     * @param network
+     * @param networkNumber
      * @param station
      */
     public Address(final int networkNumber, final byte station) {
@@ -98,7 +98,7 @@ public class Address extends BaseType {
     /**
      * Convenience constructor for IP addresses remote to this network.
      *
-     * @param network
+     * @param networkNumber
      * @param ipAddress
      * @param port
      */

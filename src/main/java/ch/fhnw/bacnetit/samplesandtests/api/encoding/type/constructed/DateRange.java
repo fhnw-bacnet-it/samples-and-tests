@@ -29,7 +29,7 @@ import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
 /**
  * ASHRAE Standard 135-2012 Clause 21 p. 667<br>
  * BACnetDateRange ::= SEQUENCE { -- see
- * {@link ch.fhnw.siemens.bacnet.asn1.type.primitive.Date} Clause 20.2.12 p.631
+ * ch.fhnw.siemens.bacnet.asn1.type.primitive.Date Clause 20.2.12 p.631
  * for restrictions <br>
  * startDate Date,<br>
  * endDate Date }<br>
