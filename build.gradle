@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
@@ -81,6 +82,25 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
+}
+
+// install into Maven repository
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'ch.fhnw.bacnet-it'
+            artifactId = project.name
+            version = project.version
+            from components.java
+
+            artifact sourcesJar {
+                classifier = 'sources'
+            }
+            artifact javadocJar {
+                classifier = 'javadoc'
+            }
+        }
+    }
 }
 
 // make tar.gz
