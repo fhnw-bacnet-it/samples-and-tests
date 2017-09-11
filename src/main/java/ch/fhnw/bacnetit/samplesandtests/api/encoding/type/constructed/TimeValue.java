@@ -31,7 +31,7 @@ import ch.fhnw.bacnetit.samplesandtests.api.encoding.util.ByteQueue;
  * ASHRAE Standard 135-2012 Clause 21 p. 712 <br>
  * BACnetTimeValue ::= SEQUENCE { <br>
  * time Time, <br>
- * value ABSTRACT-SYNTAX.&Type -- any primitive datatype; complex types cannot
+ * value ABSTRACT-SYNTAX.&amp;Type -- any primitive datatype; complex types cannot
  * be decoded <br>
  * }
  */
