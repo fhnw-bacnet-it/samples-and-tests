@@ -119,8 +119,8 @@ public class TestLocalSpecService {
 
     private void setupHost1() throws URISyntaxException {
 
-        portLocal1Tls = 8080;
-        portLocal1NoTls = 8081;
+        portLocal1Tls = 38080;
+        portLocal1NoTls = 38081;
         // Define URI for host 1
         hostLocal1Tls = new URI("wss://localhost:" + portLocal1Tls);
         hostLocal1NoTls = new URI("ws://localhost:" + portLocal1NoTls);
