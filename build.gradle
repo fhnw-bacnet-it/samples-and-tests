@@ -108,7 +108,5 @@ distTar {
     compression = Compression.GZIP
 }
 
-// generate a Gradle wrapper
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
-}
+// set version of gradle wrapper to generate
+wrapper.gradleVersion = '3.5'
